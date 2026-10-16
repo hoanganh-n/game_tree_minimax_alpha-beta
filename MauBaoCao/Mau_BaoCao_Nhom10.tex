@@ -1,0 +1,172 @@
+% !TeX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{lmodern}
+\usepackage[a4paper,left=19mm,right=19mm,top=21mm,bottom=21mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,array,booktabs,tabularx,longtable,ragged2e}
+\usepackage[table]{xcolor}
+\usepackage{tikz,listings,enumitem,fancyhdr,lastpage,needspace}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage[most]{tcolorbox}
+\usepackage[unicode,hidelinks]{hyperref}
+\usepackage{bookmark}
+\definecolor{Ink}{HTML}{18384F}
+\definecolor{Teal}{HTML}{087E8B}
+\definecolor{Paper}{HTML}{F1F6F8}
+\definecolor{Muted}{HTML}{526477}
+\definecolor{MaxFill}{HTML}{D5EDF7}
+\definecolor{MinFill}{HTML}{FFC2C0}
+\definecolor{Green}{HTML}{276548}
+\renewcommand{\tabularxcolumn}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}\linespread{1.02}
+\setlist[enumerate]{leftmargin=6mm,itemsep=4pt,topsep=3pt}
+\setlist[itemize]{leftmargin=5mm,itemsep=3pt,topsep=3pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\fontsize{8}{9.5}\selectfont\sffamily\color{Ink}BIỂU DIỄN TRI THỨC VÀ TÌM KIẾM NÂNG CAO}
+\fancyhead[R]{\fontsize{8}{9.5}\selectfont\sffamily\Version}
+\fancyfoot[L]{\fontsize{8.3}{10}\selectfont\color{Muted}Nguyễn Bích Vân\textbar Biểu diễn tri thức và tìm kiếm nâng cao}
+\fancyfoot[R]{\footnotesize\thepage/\pageref*{LastPage}}
+\renewcommand{\headrulewidth}{.4pt}
+\newtcolorbox{notice}[1][]{enhanced,breakable,colback=Paper,colframe=Teal!45,boxrule=.5pt,arc=1mm,left=3mm,right=3mm,top=2mm,bottom=2mm,#1}
+\newcommand{\head}[1]{\par\Needspace{3\baselineskip}\medskip{\large\sffamily\bfseries\color{Ink}#1}\par}
+\newcommand{\pagehead}[1]{\clearpage\begin{tcolorbox}[colback=Ink,colframe=Ink,coltext=white,fontupper=\sffamily\large\bfseries,arc=1mm]#1\end{tcolorbox}}
+\newcommand{\MaxTriangle}{\tikz[baseline=-.5ex]\node[regular polygon,regular polygon sides=3,draw=Ink,fill=MaxFill,inner sep=0pt,minimum size=3.1mm]{};}
+\newcommand{\MinTriangle}{\tikz[baseline=-.5ex]\node[regular polygon,regular polygon sides=3,shape border rotate=180,draw=Ink,fill=MinFill,inner sep=0pt,minimum size=3.1mm]{};}
+\lstdefinestyle{py}{language=Python,basicstyle=\ttfamily\fontsize{8.5}{10.3}\selectfont,keywordstyle=\bfseries\color{Teal},commentstyle=\color{Muted}\itshape,stringstyle=\color{Green},showstringspaces=false,keepspaces=true,columns=fullflexible,breaklines=true,frame=single,rulecolor=\color{Teal!35},backgroundcolor=\color{Paper},framesep=5pt,aboveskip=6pt,belowskip=6pt,upquote=true,tabsize=4}
+\lstset{style=py}
+\hypersetup{pdfauthor={Nguyễn Bích Vân},pdflang={vi-VN},pdfsubject={Biểu diễn tri thức và tìm kiếm nâng cao}}
+
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\pts}[1]{\hfill\textbf{[#1 điểm]}}
+\newcommand{\NA}{\textemdash}
+\newcommand{\Version}{NHÓM 10 · MẪU BÁO CÁO}
+\begin{document}\small
+{\Large\sffamily\bfseries\color{Ink}01. THÔNG TIN NHÓM VÀ MÔ HÌNH}\par\medskip
+BÁO CÁO GIỮA KỲ • NHÓM 10 • MINIMAX VÀ ALPHA–BETA\par\medskip
+Học phần: Biểu diễn tri thức và tìm kiếm nâng cao\par Giảng viên: TS. Nguyễn Bích Vân — IAI–UET–VNU\par\medskip
+Nhóm / lớp: [Điền]   Ngày giao / ngày nộp: [Điền]\par Python / hệ điều hành / máy dùng chung: [Điền]\par\medskip
+Hướng dẫn: thay [Điền] bằng bài làm và kết quả thật; thêm dòng hoặc giãn ô khi cần. Mẫu trống 6 trang; báo cáo hoàn thiện 6–8 trang nội dung chính, không tính bài tính tay. Chọn Word hoặc LaTeX, không phải điền cả hai.\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
+\textbf{Thành viên / MSSV} & \textbf{Chủ trì} & \textbf{2 test phụ trách} & \textbf{Kiểm tra chéo}\\\midrule
+1. [Điền] & [Điền] & [Điền] & [Điền]\\
+2. [Điền] & [Điền] & [Điền] & [Điền]\\
+3. [Điền] & [Điền] & [Điền] & [Điền]\\
+4. [Điền] & [Điền] & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{1. Bài toán nhóm đang giải}
+Trạng thái, hành động, chuyển trạng thái, lượt đi và kết thúc: [Điền 4–6 câu.]\par\medskip
+Utility có ý nghĩa gì? Vì sao không cộng các điểm trên đường? [Điền.]\par\medskip
+Tại sao chọn lá lớn nhất chưa phải chiến lược Minimax? Một đường chơi khác chính sách thế nào? [Điền.]\par\medskip
+Phần mã dùng nguyên, phần nhóm sửa/thêm: [Điền tên tệp và thay đổi cụ thể.]\par\medskip
+\pagehead{02. TRÌNH BÀY THUẬT TOÁN}
+\head{2. Minimax và Alpha–Beta bằng lời của nhóm}
+Công thức truy hồi Minimax (lá / MAX / MIN): [Điền.]\par Giải thích alpha, beta và fail-soft: [Điền.]\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
+\textbf{Khối xử lý} & \textbf{Mã giả / giải thích của nhóm} & \textbf{Tệp và dòng}\\\midrule
+Kiểm tra lá & [Điền] & [Điền]\\
+Khởi tạo best/action & [Điền] & [Điền]\\
+Gọi đệ quy & [Điền] & [Điền]\\
+Cập nhật hành động & [Điền] & [Điền]\\
+Truyền / cập nhật cửa sổ & [Điền] & [Điền]\\
+Điều kiện cắt / trả về & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{3. Những quy tắc không được nhầm}
+Tại MAX và MIN, số trả sớm là cận theo hướng nào? [Điền.]\par Vì sao so sánh chọn action nghiêm nhưng cắt dùng cả dấu bằng? [Điền.]\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XX}\toprule
+\textbf{Trường} & \textbf{Nhóm hiểu và kiểm tra thế nào?}\\\midrule
+visited = expanded + leaves & [Điền]\\
+cutoffs / pruned\_branches & [Điền]\\
+unvisited\_nodes / leaf\_order & [Điền]\\
+principal\_variation / returns & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Cận thời gian xấu nhất; bộ nhớ stack, cây sẵn có và trace: [Điền.]\par\medskip
+\pagehead{03. ĐỐI CHIẾU TÍNH TAY VÀ MÃ}
+PDF bài tính tay: TinhTay.pdf, trang [Điền]. Ngày ghi dự đoán trước khi chạy: [Điền].\par\medskip
+\head{4. T0: Minimax và Alpha–Beta}
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
+\textbf{Nội dung} & \textbf{Dự đoán bằng tay} & \textbf{Kết quả code / có khớp?}\\\midrule
+Giá trị / hành động gốc & [Điền] & [Điền]\\
+Đường chơi tối ưu từ Minimax & [Điền] & [Điền]\\
+Visited / expanded / leaves & [Điền] & [Điền]\\
+Gốc nhánh cắt / số cạnh & [Điền] & [Điền]\\
+Lá không đọc / mọi nút không thăm & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Trích một lần cắt: nút [Điền], alpha/beta [Điền], số trả [Điền], nhánh bỏ [Điền], hướng cận [Điền].\par\medskip
+\head{5. T(t): thay riêng L01}
+Công thức giá trị gốc theo từng khoảng t: [Điền.]\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: [Điền và giải thích.]\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
+\textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá AB / tệp}\\\midrule
+10 & [Điền] & [Điền] & [Điền]\\
+11 & [Điền] & [Điền] & [Điền]\\
+14 & [Điền] & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+\head{6. T1: kết quả điểm đúng nhưng action sai}
+Giá trị thật A/B/R: [Điền]. Số B trả và hướng cận: [Điền].\par Ảnh hưởng của >= khi đổi action; phản ứng của MIN; test phát hiện: [Điền.]\par\medskip
+\pagehead{04. KẾT QUẢ CHUNG VÀ DỮ LIỆU RIÊNG}
+JSON/CSV chung: output/bat\_buoc.* (24 cấu hình). Lệnh và ngày chạy: [Điền].\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXXX}\toprule
+\textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá MM} & \textbf{Lá AB} & \textbf{Tiết kiệm}\\\midrule
+T0/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
+T0/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
+T1/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
+T1/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
+T2/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
+T2/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Một phép tính tỷ lệ tiết kiệm: [Điền]. Một trường hợp không tiết kiệm lá: [Điền].\par\medskip
+Năm mốc tham số và hai dòng affine nằm ở CSV các dòng [Điền]. Dự đoán / kết quả của u $\mapsto$ 2u-7: [Điền].\par\medskip
+\head{7. Hai cây riêng N1/N2}
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
+\textbf{Nội dung} & \textbf{N1 (16 lá, MAX)} & \textbf{N2 (8 lá, MIN)}\\\midrule
+Dãy utility (hoặc dẫn JSON) & [Điền] & [Điền]\\
+Seed / cách tạo & [Điền] & [Điền]\\
+Giá trị / action LR & [Điền] & [Điền]\\
+Giá trị / action RL & [Điền] & [Điền]\\
+So sánh số lá MM và AB & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Kỳ vọng tính tay độc lập của N2: [Điền / dẫn trang tính tay].\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: [Điền].\par\medskip
+Đo thời gian (tùy chọn): [Không thực hiện / Điền máy, 3 lần, trung vị, trace/step đã tắt].\par\medskip
+\pagehead{05. KIỂM THỬ VÀ PHÁT HIỆN SAI LẦM}
+Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh / ngày chạy: [Điền].\par Tổng test / đạt / lỗi thực tế: [Điền]. Không điền PASS khi chưa chạy.\par\medskip
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
+\textbf{STT} & \textbf{Test / dữ liệu} & \textbf{Kỳ vọng và cách suy ra} & \textbf{Kết quả} & \textbf{Người}\\\midrule
+1 & [Điền] & [Điền] & [Điền] & [Điền]\\
+2 & [Điền] & [Điền] & [Điền] & [Điền]\\
+3 & [Điền] & [Điền] & [Điền] & [Điền]\\
+4 & [Điền] & [Điền] & [Điền] & [Điền]\\
+5 & [Điền] & [Điền] & [Điền] & [Điền]\\
+6 & [Điền] & [Điền] & [Điền] & [Điền]\\
+7 & [Điền] & [Điền] & [Điền] & [Điền]\\
+8 & [Điền] & [Điền] & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Ba test có kỳ vọng tính tay độc lập: [Điền tên test và phép tính / dẫn trang].\par Test T1 có kiểm cả value lẫn action không? [Điền].\par\medskip
+\head{8. Hai lỗi nhóm đã phân tích}
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
+\textbf{Mục} & \textbf{Lỗi 1} & \textbf{Lỗi 2}\\\midrule
+Tệp / dòng / thay đổi gây lỗi & [Điền] & [Điền]\\
+Dự đoán trước khi chạy & [Điền] & [Điền]\\
+Dữ liệu / test phát hiện & [Điền] & [Điền]\\
+Kết quả thực tế / cách sửa & [Điền] & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Các trường hợp chưa kiểm hoặc lỗi còn tồn tại: [Điền trung thực].\par\medskip
+\pagehead{06. NHẬN XÉT, TÁI TẠO VÀ BẢO VỆ}
+\head{9. Ba kết luận có minh chứng}
+Kết luận 1 — LR/RL và số lá: [Điền 60–90 từ, dẫn cây/cấu hình/số liệu].\par\medskip
+Kết luận 2 — tham số hoặc đổi thang utility: [Điền 60–90 từ; giải thích, không chỉ chép bảng].\par\medskip
+Kết luận 3 — kiểm thử và một điều hiểu rõ hơn: [Điền 60–90 từ].\par\medskip
+Hai giới hạn của thực nghiệm: [Điền].\par Một cải tiến có thể khảo sát tiếp trong Minimax/Alpha–Beta: [Điền, không bắt buộc cài].\par\medskip
+\head{10. Kiểm tra trước khi nộp}
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XX}\toprule
+\textbf{Hạng mục} & \textbf{Kết quả / người kiểm}\\\midrule
+Báo cáo, bài tay và 6–8 slide & [Điền]\\
+24+8 cấu hình / trace T0 & [Điền]\\
+8 test riêng, mỗi người 2 / log thật & [Điền]\\
+README\_NOP, dữ liệu và đủ Python & [Điền]\\
+ZIP giải nén chạy lại trên máy khác & [Điền]\\
+Bốn người đã tập bảo vệ 15–20 phút & [Điền]\\
+\bottomrule\end{tabularx}\endgroup\par\medskip
+Tên ZIP: [Điền].\par Mốc ngày 5 / ngày 10 và tệp minh chứng: [Điền].\par Bốn thành viên xác nhận bài nộp và nội dung phụ trách: [Điền].\par\medskip
+\end{document}
