@@ -87,4 +87,4 @@
   * Phối hợp cùng thành viên khác giải nén chạy thử nghiệm trên máy sạch.
 
 ---
-
+Nếu có viết 1 số phần trong báo cáo, thì các bạn viết vào file .tex cho mình nhé, mình sẽ tổng hợp lại và hoàn thiện sau.
