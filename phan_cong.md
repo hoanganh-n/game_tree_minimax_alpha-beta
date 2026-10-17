@@ -52,7 +52,7 @@
   * `tao_du_lieu.py`: Cơ chế sinh dữ liệu ngẫu nhiên với seed cố định.
   * `data_cases.py`: Cấu trúc cây tham số $T(t)$ và biến đổi affine.
 * **Sinh dữ liệu riêng của nhóm:**
-  * Chạy `python tao_du_lieu.py --seed <seed_nhom>` để sinh file `du_lieu_nhom.json` chứa:
+  * Chạy `python tao_du_lieu.py --seed <seed_nhom>` để sinh file `du_lieu_nhom.json` chứa (Hoàng Anh làm rồi nhé): 
     * $N_1$: 16 lá, người chơi ở gốc là MAX.
     * $N_2$: 8 lá, người chơi ở gốc là MIN.
 * **Bài tính tay nộp bài:**
