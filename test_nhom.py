@@ -1,7 +1,23 @@
 import unittest
 from data_cases import case, parameter_tree
 from search import solve
+from tree_model import make_tree
 
+class Examples(unittest.TestCase):
+
+    def test_tinh_tay_doc_lap(self):
+        for algo in ("minimax", "alphabeta"):
+            r = solve(make_tree([7, 2, 5, 9]), algo)
+            self.assertEqual(
+                (r["value"], r["action"]), (5, "B")
+            )
+
+    def test_zero_is_leaf(self):
+        r = solve(make_tree([0]))
+        self.assertEqual(
+            (r["value"], r["action"], r["leaves"], r["expanded"]),
+            (0, None, 1, 0)
+        )
 
 class TestParameterAndPruning(unittest.TestCase):
 
