@@ -1,13 +1,148 @@
+"""Bộ 8 kiểm thử riêng của Nhóm 10 (test_nhom.py).
+Mỗi thành viên phụ trách đúng 2 test.
+"""
 import unittest
-from tree_model import make_tree
+
+from data_cases import case, parameter_tree
 from search import solve
-class Examples(unittest.TestCase):
-    def test_tinh_tay_doc_lap(self):
-        # min(7,2)=2; min(5,9)=5; max(2,5)=5.
+from tree_model import load_cases, make_tree
+
+
+class TestNhom10(unittest.TestCase):
+
+
+    def test_am_va_khong_sua_input(self):
+        """Test 1: Toàn điểm âm và bảo toàn mảng dữ liệu đầu vào."""
+        # TODO:
+        pass
+
+    def test_utility_zero_va_pv(self):
+        """Test 2: Xử lý đúng utility 0 và kiểm tra đường đi tối ưu (PV)."""
+        # TODO:
+        pass
+
+
+
+    def test_T1_false_tie(self):
+        """Test 3: Kiểm tra cây T1 bắt lỗi hòa giả giữa các cận.
+        Tính tay độc lập: A = min(10, 12) = 10;
+        B = min(10, 2) = 2; R phải chọn A với giá trị 10.
+        Nếu chỉ kiểm tra value sẽ bỏ sót kết quả sai (10, B).
+        """
+        for algorithm in ("minimax", "alphabeta"):
+            with self.subTest(algorithm=algorithm):
+                result = solve(case("T1"), algorithm=algorithm, order="LR")
+                self.assertEqual(
+                    (result["value"], result["action"]),
+                    (10, "A"),
+                )
+
+    def test_T0_pruning_bounds_and_counts(self):
+        """Test 4: Vết tính tay Alpha-Beta trên T0, cờ cận và số đếm.
+        Tính tay: A trả về 10 -> B nhận alpha = 10.
+        B11 đọc 4 và cắt L10; B12 đọc 3 và cắt L12;
+        B trả về 4 và cắt toàn bộ cây con B2.
+        """
+        result = solve(case("T0"), algorithm="alphabeta", order="LR")
+
+        self.assertEqual((result["value"], result["action"]), (10, "A"))
+        self.assertEqual(result["pruned_roots"], ["L10", "L12", "B2"])
+        self.assertEqual(
+            result["leaf_order"],
+            ["L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08",
+             "L09", "L11"],
+        )
+        self.assertEqual(
+            set(result["unvisited_nodes"]),
+            {"L10", "L12", "B2", "B21", "B22", "L13", "L14", "L15", "L16"},
+        )
+        for node, expected_value in (("B11", 4), ("B12", 3), ("B", 4)):
+            with self.subTest(node=node):
+                returned = result["returns"][node]
+                # UPPER có nghĩa là giá trị thực <= giá trị trả về
+                self.assertEqual(returned["value"], expected_value)
+                self.assertEqual(returned["bound"], "UPPER")
+
+        # 12 internal nodes + 10 leaves = 22 visited nodes
+        expected_counts = {
+            "visited": 22,
+            "expanded": 12,
+            "leaves": 10,
+            "cutoffs": 3,
+            "pruned_branches": 3,
+            "max_depth": 4,
+        }
+        for field, expected in expected_counts.items():
+            with self.subTest(statistic=field):
+                self.assertEqual(result[field], expected)
+        self.assertEqual(
+            result["visited"], result["expanded"] + result["leaves"]
+        )
+
+
+    def test_t0_parameter(self):
+        """Test 5: Khảo sát tham số T0(t) khi t in {10, 11, 14}.
+        Khảo sát giá trị gốc và số lá Alpha-Beta đọc được.
+        """
+        expected = {
+            10: (10, 10),
+            11: (11, 9),
+            14: (12, 9),
+        }
+
+        for t, (value, ab_leaves) in expected.items():
+            with self.subTest(t=t):
+                tree = parameter_tree(t)
+
+                mm = solve(tree, "minimax", "LR")
+                ab = solve(tree, "alphabeta", "LR")
+
+                self.assertEqual((mm["value"], mm["action"]), (value, "A"))
+                self.assertEqual((ab["value"], ab["action"]), (value, "A"))
+                self.assertEqual(ab["leaves"], ab_leaves)
+
+    def test_t1_pruning_preserves_action(self):
+        """Test 6: Cắt tỉa trên T1 bảo toàn hành động tối ưu."""
+        tree = case("T1")
+
+        mm = solve(tree, "minimax", "LR")
+        ab = solve(tree, "alphabeta", "LR")
+
+        self.assertEqual((mm["value"], mm["action"]), (10, "A"))
+        self.assertEqual((ab["value"], ab["action"]), (10, "A"))
+        self.assertEqual(ab["leaf_order"], ["L01", "L02", "L03"])
+        self.assertEqual(ab["unvisited_nodes"], ["L04"])
+        self.assertEqual(ab["returns"]["B"]["bound"], "UPPER")
+
+
+    def test_hoa_that_theo_LR_RL(self):
+        """Test 7: Hiện tượng hòa thật theo thứ tự duyệt LR/RL."""
+        tree = make_tree([2,5,2,7])
         for algo in ('minimax','alphabeta'):
-            r=solve(make_tree([7,2,5,9]),algo)
-            self.assertEqual((r['value'],r['action']),(5,'B'))
-    def test_zero_is_leaf(self):
-        r=solve(make_tree([0]))
-        self.assertEqual((r['value'],r['action'],r['leaves'],r['expanded']),(0,None,1,0))
-if __name__=='__main__': unittest.main()
+            r_lr = solve(tree,algo,"LR")
+            r_rl = solve(tree,algo,"RL")
+
+            self.assertEqual(r_lr["value"],2)
+            self.assertEqual(r_rl["value"],2)
+            self.assertEqual(r_lr["action"],'A')
+            self.assertEqual(r_rl["action"],'B')
+
+    def test_trace_bat_tat_va_tich_hop_json(self):
+        """Test 8: Bật/tắt trace không đổi kết quả và tích hợp json."""
+        cases = dict(load_cases("du_lieu_nhom.json"))
+        tree_n1 = cases["N1"]
+
+        r_off = solve(tree_n1,"alphabeta",trace=False)
+        r_on = solve(tree_n1,"alphabeta",trace=True)
+
+        for key in ('value', 'action', 'visited', 'expanded', 'leaves', 'cutoffs'):
+            self.assertEqual(r_off[key],r_on[key])
+
+        self.assertEqual(len(r_off["trace"]),0)
+        self.assertGreater(len(r_on["trace"]),0)
+
+        for r in (r_off, r_on):
+            self.assertEqual(r['visited'], r['expanded'] + r['leaves'])
+
+if __name__ == "__main__":
+    unittest.main()
