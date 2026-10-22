@@ -14,12 +14,32 @@ class TestNhom10(unittest.TestCase):
     def test_am_va_khong_sua_input(self):
         """Test 1: Toàn điểm âm và bảo toàn mảng dữ liệu đầu vào."""
         # TODO:
-        pass
+        """Test 1: Toàn điểm âm và bảo toàn mảng dữ liệu đầu vào.
+        Tính tay: A1=max(-3,-7)=-3; A2=max(-1,-5)=-1; A=min(-3,-1)=-3;
+        B1=max(-9,-2)=-2; B2=max(-6,-4)=-4; B=min(-2,-4)=-4;
+        R=max(-3,-4)=-3, chọn A.
+        """
+        leaves=[-3,-7,-1,-5,-9,-2,-6,-4]
+        original=list(leaves)
+        tree=make_tree(leaves)
+        for algo in ("minimax","alphabeta"):
+            r=solve(tree, algo, "LR")
+            self.assertEqual((r["value"],r["action"]),(-3,"A"))
+        self.assertEqual(leaves,original)
 
     def test_utility_zero_va_pv(self):
         """Test 2: Xử lý đúng utility 0 và kiểm tra đường đi tối ưu (PV)."""
         # TODO:
-        pass
+        """Test 2: Utility 0 là lá hợp lệ và đường đi tối ưu (PV).
+        Tính tay: A1=max(0,-3)=0; A2=max(6,2)=6; A=min(0,6)=0;
+        B1=max(-5,-1)=-1; B2=max(4,1)=4; B=min(-1,4)=-1;
+        R=max(0,-1)=0, chọn A. PV: R -> A -> A1 -> L01.
+        """
+        tree=make_tree([0,-3,6,2,-5,-1,4,1])
+        r=solve(tree,"minimax","LR")
+        self.assertEqual((r["value"],r["action"]),(0, "A"))
+        self.assertEqual(r["principal_variation"],["R", "A", "A1", "L01"])
+        self.assertEqual(r["leaves"],8)
 
 
 
