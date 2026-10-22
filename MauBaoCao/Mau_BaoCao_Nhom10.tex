@@ -57,19 +57,60 @@ Hướng dẫn: thay [Điền] bằng bài làm và kết quả thật; thêm d�
 4. [Điền] & [Điền] & [Điền] & [Điền]\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 \head{1. Bài toán nhóm đang giải}
-Trạng thái, hành động, chuyển trạng thái, lượt đi và kết thúc: [Điền 4–6 câu.]\par\medskip
-Utility có ý nghĩa gì? Vì sao không cộng các điểm trên đường? [Điền.]\par\medskip
-Tại sao chọn lá lớn nhất chưa phải chiến lược Minimax? Một đường chơi khác chính sách thế nào? [Điền.]\par\medskip
-Phần mã dùng nguyên, phần nhóm sửa/thêm: [Điền tên tệp và thay đổi cụ thể.]\par\medskip
+\textbf{Trạng thái, hành động, chuyển trạng thái, lượt đi và kết thúc.}
+Mỗi nút của cây $T_0$ là một trạng thái: gốc $R$ là trạng thái ban đầu; 14 nút trong còn lại ($A, B, A1, A2, B1, B2, A11, \dots, B22$) là trạng thái trung gian; 16 lá $L01, \dots, L16$ là trạng thái kết thúc.
+Hành động tại một nút trong là chọn một trong hai con trực tiếp (trái hoặc phải).
+Hàm chuyển $\mathrm{Result}(s,a)$ trả về nút con tương ứng, ví dụ $\mathrm{Result}(A, \text{phải}) = A2$.
+Lượt đi luân phiên theo tầng: MAX đi ở $R$ và tầng $A1, A2, B1, B2$; MIN đi ở tầng $A, B$ và tầng $A11, \dots, B22$.
+Trò chơi kết thúc khi chạm lá $L_x$ ($x \in [01, 16]$); thứ tự LR/RL chỉ đổi thứ tự xét con, không đổi tên hay vị trí lá.\par\medskip
+
+\textbf{Utility có ý nghĩa gì? Vì sao không cộng các điểm trên đường?}
+Utility là lợi ích cuối cùng của ván chơi nhìn từ phía MAX, chỉ gắn với trạng thái kết thúc (lá): MAX muốn tăng, MIN muốn giảm cùng một con số.
+Các nút trong không có điểm riêng; giá trị của chúng là giá trị Minimax suy ra từ lá. Vì vậy cộng điểm dọc đường là đếm lặp và biến bài toán đối kháng thành bài toán tìm đường có tổng lớn nhất, bỏ qua việc MIN chọn ngược lại.
+Utility 0 là một kết quả hợp lệ (ví dụ hòa), khác hoàn toàn với \texttt{None} (``không phải lá'').\par\medskip
+
+\textbf{Tại sao chọn lá lớn nhất chưa phải chiến lược Minimax? Một đường chơi khác chính sách thế nào?}
+Lá lớn nhất $L14 = 101$ nằm dưới $B \to B2 \to B21$. Nếu MAX chọn $B$ thì quyền quyết định tiếp theo thuộc về MIN; MIN sẽ chọn $B1$ (giá trị 4) chứ không chọn $B2$ (giá trị 100). Do đó chọn $B$ chỉ đảm bảo 4, kém hơn 10 khi chọn $A$; Minimax giả định đối thủ chơi tối ưu nên không thể ``hy vọng'' MIN đi vào $B2$.
+Một đường chơi (ví dụ $R \to A \to A1 \to A11 \to L01$) chỉ là một chuỗi nước đi định sẵn, ngầm giả định đối thủ đi đúng như ta đoán.
+Chính sách thì quy định nước đi của MAX tại \emph{mọi} nút MAX có thể gặp, ứng với mọi phản ứng của MIN: chọn $A$; nếu MIN chọn $A1$ thì chọn $A12$, nếu MIN chọn $A2$ thì chọn $A22$. Giá trị 10 là mức chính sách này đảm bảo dù MIN đi thế nào; đường $R \to A \to A1 \to A12 \to L04$ chỉ là đường xảy ra khi cả hai bên cùng chơi tối ưu (principal variation).\par\medskip
+
+\textbf{Phần mã dùng nguyên, phần nhóm sửa/thêm.}
+Dùng nguyên, không sửa thuật toán: \texttt{tree\_model.py} (\texttt{make\_tree}, \texttt{walk}, \texttt{validate\_tree}, \texttt{load\_cases}), \texttt{search.py} (\texttt{solve}), \texttt{data\_cases.py}, \texttt{run.py}, \texttt{tao\_du\_lieu.py}, \texttt{chay\_kiem\_thu.py}, \texttt{dong\_goi.py}.
+Nhóm thêm: \texttt{test\_nhom.py} (8 test, mỗi người 2), \texttt{du\_lieu\_nhom.json} (N1, N2 sinh bằng \texttt{tao\_du\_lieu.py}), thư mục \texttt{output/} (kết quả chạy thật).\par\medskip
 \pagehead{02. TRÌNH BÀY THUẬT TOÁN}
 \head{2. Minimax và Alpha–Beta bằng lời của nhóm}
-Công thức truy hồi Minimax (lá / MAX / MIN): [Điền.]\par Giải thích alpha, beta và fail-soft: [Điền.]\par\medskip
+\textbf{Công thức truy hồi Minimax (lá / MAX / MIN).}
+\[
+V(u)=\begin{cases}
+\mathrm{utility}(u) & \text{nếu } u \text{ là lá},\\
+\max_{c \in \mathrm{con}(u)} V(c) & \text{nếu } u \text{ là nút MAX},\\
+\min_{c \in \mathrm{con}(u)} V(c) & \text{nếu } u \text{ là nút MIN}.
+\end{cases}
+\]
+Hành động tại $u$ là con $c$ đầu tiên (theo thứ tự LR hoặc RL) đạt giá trị trên; khi hòa giữ con xét trước nhờ so sánh nghiêm. Mã giả của nhóm:
+\begin{lstlisting}
+def minimax(u):
+    if u is leaf:                      # kiem tra bang "is not None", 0 van la la
+        return utility(u), None
+    if u is MAX: best = -inf
+    else:        best = +inf
+    action = None
+    for c in children(u) in order LR or RL:
+        value, _ = minimax(c)
+        if (u is MAX and value > best) or (u is MIN and value < best):
+            best, action = value, c    # so sanh nghiem: hoa giu con truoc
+    return best, action
+\end{lstlisting}
+\textbf{Vì sao khởi tạo $-\infty$ / $+\infty$?} Vì $\max(-\infty, x) = x$ và $\min(+\infty, x) = x$ với mọi $x$: con đầu tiên luôn ghi đè \texttt{best}, nên giá trị trả về luôn là giá trị của một con thật. Nếu khởi tạo MAX bằng 0, cây toàn điểm âm (T2, test 1) sẽ trả 0 -- con số không ứng với lá nào.\par
+\textbf{Vì sao utility 0 không bị coi là ``chưa kết thúc''?} Lá được nhận biết bằng \texttt{node.utility is not None}, không phải \texttt{if node.utility}. Nếu dùng phép thử đúng/sai, lá có utility 0 bị xem như nút trong không có con và kết quả sai; \texttt{None} mới là dấu hiệu ``không phải lá'' (test 2 kiểm tra điều này).\par\medskip
+
+Giải thích alpha, beta và fail-soft: [Người 2 điền.]\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Khối xử lý} & \textbf{Mã giả / giải thích của nhóm} & \textbf{Tệp và dòng}\\\midrule
-Kiểm tra lá & [Điền] & [Điền]\\
-Khởi tạo best/action & [Điền] & [Điền]\\
-Gọi đệ quy & [Điền] & [Điền]\\
-Cập nhật hành động & [Điền] & [Điền]\\
+Kiểm tra lá & Nếu $u$ là lá: trả \texttt{(utility, None)}. So sánh với \texttt{None} nên lá 0 vẫn là lá. & \texttt{search.py} dòng 32--36\\
+Khởi tạo best/action & MAX: $\mathit{best} = -\infty$; MIN: $\mathit{best} = +\infty$; \texttt{action = None}. & \texttt{search.py} dòng 38--40\\
+Gọi đệ quy & Duyệt con theo LR hoặc đảo ngược nếu RL; \texttt{score = visit(child, ...)} tương đương \texttt{minimax(c)}. & \texttt{search.py} dòng 41--43\\
+Cập nhật hành động & MAX: nếu $\mathit{score} > \mathit{best}$; MIN: nếu $\mathit{score} < \mathit{best}$ thì \texttt{best, action = score, c}. So sánh nghiêm: hòa giữ con xét trước. & \texttt{search.py} dòng 44--45\\
 Truyền / cập nhật cửa sổ & [Điền] & [Điền]\\
 Điều kiện cắt / trả về & [Điền] & [Điền]\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
