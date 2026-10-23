@@ -137,39 +137,39 @@ Lá không đọc / mọi nút không thăm & 6 lá: $L10,L12,L13,L14,L15,L16$. 
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Trích một lần cắt: nút $B11$ (MIN), alpha/beta $[10,+\infty]$ (MAX đã có 10 từ $A$), số trả $4$ sau khi đọc $L09$, nhánh bỏ $B11\to L10$ vì $4\le10$, hướng cận \texttt{UPPER}: $V(B11)\le4$, không phải cận dưới.\par\medskip
 \head{5. T(t): thay riêng L01}
-Công thức giá trị gốc theo từng khoảng t: [Điền.]\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: [Điền và giải thích.]\par\medskip
+Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t\le10$; $V(R)=t$ khi $10<t<12$; $V(R)=12$ khi $12\le t\le20$.\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: Tại $t=10$, A1 bắt đầu chọn A11 (hòa ưu tiên LR); khi $t>12$, A11 chuyển sang L02. L04 bị cắt khi $11\le\min(t,12)$, tức $t\ge11$.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
 \textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá AB / tệp}\\\midrule
-10 & [Điền] & [Điền] & [Điền]\\
-11 & [Điền] & [Điền] & [Điền]\\
-14 & [Điền] & [Điền] & [Điền]\\
+10 & 10 / A & R--A--A1--A11--L01 & 10 / CSV\\
+11 & 11 / A & R--A--A1--A11--L01 & 9 / CSV\\
+14 & 12 / A & R--A--A1--A11--L02 & 9 / CSV\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 \head{6. T1: kết quả điểm đúng nhưng action sai}
 \textbf{Giá trị thật A/B/R:}\\ $A=\min(10,12)=10$, $B=\min(10,2)=2$, $R=\max(10,2)=10$, nên MAX phải chọn $A$. Số B trả và hướng cận: Với LR, xét $A$ trước làm $\alpha_R=10$. Tại $B$ (MIN), đọc $L03=10$ đã đạt $\mathit{best}\le\alpha$ nên cắt $L04=2$ và trả 10 với cờ \texttt{UPPER}: $V(B)\le10$, không có nghĩa $V(B)=10$.\par \textbf{Ảnh hưởng của >= khi đổi action; phản ứng của MIN; test phát hiện:}\\ Nếu đổi phép chọn action ở MAX từ $>$ thành $\ge$, gốc sẽ lấy số cận 10 của $B$ làm hòa với giá trị chính xác 10 của $A$ rồi đổi sang $B$. Kết quả báo $(10,B)$ có điểm đúng nhưng hành động sai: khi chơi thật, MIN chọn $L04=2$, MAX chỉ nhận 2. Giữ so sánh nghiêm làm gốc giữ $A$. Test 3, \texttt{test\_03\_T1\_false\_tie}, kiểm tra đồng thời cặp \texttt{(value, action) = (10, A)} cho cả Minimax và Alpha--Beta; chỉ kiểm tra value sẽ không bắt được lỗi.\par\medskip
 \pagehead{04. KẾT QUẢ CHUNG VÀ DỮ LIỆU RIÊNG}
-JSON/CSV chung: output/bat\_buoc.* (24 cấu hình). Lệnh và ngày chạy: [Điền].\par\medskip
+JSON/CSV chung: output/bat\_buoc.* (24 cấu hình). Lệnh và ngày chạy: \code{python3 run.py --batch --tag bat_buoc}, ngày 20/10/2026.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXXX}\toprule
 \textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá MM} & \textbf{Lá AB} & \textbf{Tiết kiệm}\\\midrule
-T0/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
-T0/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
-T1/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
-T1/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
-T2/LR & [Điền] & [Điền] & [Điền] & [Điền]\\
-T2/RL & [Điền] & [Điền] & [Điền] & [Điền]\\
+T0/LR & 10 / A & 16 & 10 & 37.5\% (bỏ 6 lá)\\
+T0/RL & 10 / A & 16 & 16 & 0\% (0 lá)\\
+T1/LR & 10 / A & 4 & 3 & 25\% (1 lá)\\
+T1/RL & 10 / A & 4 & 4 & 0\% (0 lá)\\
+T2/LR & -4 / A & 8 & 8 & 0\% (0 lá)\\
+T2/RL & -4 / A & 8 & 7 & 12.5\% (1 lá)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
-Một phép tính tỷ lệ tiết kiệm: [Điền]. Một trường hợp không tiết kiệm lá: [Điền].\par\medskip
-Năm mốc tham số và hai dòng affine nằm ở CSV các dòng [Điền]. Dự đoán / kết quả của u $\mapsto$ 2u-7: [Điền].\par\medskip
+Một phép tính tỷ lệ tiết kiệm: Trên T0/LR, Minimax duyệt 16 lá, Alpha--Beta duyệt 10 lá, tỷ lệ tiết kiệm lá là $(16-10)/16 = 37.5\%$. Một trường hợp không tiết kiệm lá: T0/RL (hoặc T1/RL, T2/LR) duyệt trúng nhánh xấu trước nên không cắt được lá nào (tiết kiệm 0\%).\par\medskip
+Năm mốc tham số và hai dòng affine nằm ở CSV các dòng từ 14 đến 25. Dự đoán / kết quả của u $\mapsto$ 2u-7: Giá trị gốc $V(R) = 2 \times 10 - 7 = 13$, hành động giữ nguyên là A, số lá và vị trí cắt tỉa không đổi (AB đọc 10 lá, 3 cutoffs); khớp dự đoán lý thuyết.\par\medskip
 \head{7. Hai cây riêng N1/N2}
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Nội dung} & \textbf{N1 (16 lá, MAX)} & \textbf{N2 (8 lá, MIN)}\\\midrule
-Dãy utility (hoặc dẫn JSON) & [Điền] & [Điền]\\
-Seed / cách tạo & [Điền] & [Điền]\\
-Giá trị / action LR & [Điền] & [Điền]\\
-Giá trị / action RL & [Điền] & [Điền]\\
-So sánh số lá MM và AB & [Điền] & [Điền]\\
+Dãy utility (hoặc dẫn JSON) & \shortstack[l]{24,22,3,-3,21,13,18,-3\\-5,29,-5,21,-9,29,29,-3} & \shortstack[l]{14,-15,11,12\\-19,-6,17,-13}\\
+Seed / cách tạo & 2579 / \texttt{tao\_du\_lieu.py} & 2579 / \texttt{tao\_du\_lieu.py}\\
+Giá trị / action LR & 13 / A & $-13$ / B\\
+Giá trị / action RL & 13 / A & $-13$ / B\\
+So sánh số lá MM và AB & MM: 16; AB: 9 (LR), 16 (RL) & MM: 8; AB: 8 (LR), 6 (RL)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
-Kỳ vọng tính tay độc lập của N2: [Điền / dẫn trang tính tay].\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: [Điền].\par\medskip
-Đo thời gian (tùy chọn): [Không thực hiện / Điền máy, 3 lần, trung vị, trace/step đã tắt].\par\medskip
+Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem bài tính tay N2 trong \texttt{TinhTay.pdf}.\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
+Đo thời gian (tùy chọn): Không thực hiện.\par\medskip
 \pagehead{05. KIỂM THỬ VÀ PHÁT HIỆN SAI LẦM}
 Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \code{python3 -m unittest -v test_nhom}; ngày chạy: 23/10/2026.\par Tổng test: 9; đạt: 9; thất bại/lỗi: 0. Kết quả này từ lần chạy trực tiếp; log nộp bài cần tạo bằng \code{python3 chay_kiem_thu.py}.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
