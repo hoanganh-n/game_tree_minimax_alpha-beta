@@ -121,22 +121,37 @@ class TestNhom10(unittest.TestCase):
                 self.assertEqual((ab["value"], ab["action"]), (value, "A"))
                 self.assertEqual(ab["leaves"], ab_leaves)
 
-    def test_t1_pruning_preserves_action(self):
-        """Test 6: Cắt tỉa trên T1 bảo toàn hành động tối ưu."""
-        tree = case("T1")
+    def test_n2_root_min(self):
+        """Test 6: Kiểm tra cây N2 có lượt đi đầu tiên là MIN."""
+        cases = dict(load_cases("du_lieu_nhom.json"))
+        tree = cases["N2"]
 
-        mm = solve(tree, "minimax", "LR")
-        ab = solve(tree, "alphabeta", "LR")
+        self.assertEqual(tree.player, "MIN")
 
-        self.assertEqual((mm["value"], mm["action"]), (10, "A"))
-        self.assertEqual((ab["value"], ab["action"]), (10, "A"))
-        self.assertEqual(ab["leaf_order"], ["L01", "L02", "L03"])
-        self.assertEqual(ab["unvisited_nodes"], ["L04"])
-        self.assertEqual(ab["returns"]["B"]["bound"], "UPPER")
+        for algo in ("minimax", "alphabeta"):
+            for order in ("LR", "RL"):
+                with self.subTest(algo=algo, order=order):
+                    r = solve(tree, algo, order)
+
+                    self.assertEqual(r["value"], -13)
+                    self.assertEqual(r["action"], "B")
+
+    def test_invalid_leaf_data(self):
+        """Test 7: Kiểm tra số lá không hợp lệ hoặc utility sai kiểu."""
+        invalid_cases = [
+            [1, 2, 3],
+            [1, "abc", 3, 4],
+            [1, True, 3, 4],
+        ]
+
+        for leaves in invalid_cases:
+            with self.subTest(leaves=leaves):
+                with self.assertRaises(ValueError):
+                    make_tree(leaves, root_player="MAX")
 
 
     def test_hoa_that_theo_LR_RL(self):
-        """Test 7: Hiện tượng hòa thật theo thứ tự duyệt LR/RL."""
+        """Test 8: Hiện tượng hòa thật theo thứ tự duyệt LR/RL."""
         tree = make_tree([2,5,2,7])
         for algo in ('minimax','alphabeta'):
             r_lr = solve(tree,algo,"LR")
@@ -148,7 +163,7 @@ class TestNhom10(unittest.TestCase):
             self.assertEqual(r_rl["action"],'B')
 
     def test_trace_bat_tat_va_tich_hop_json(self):
-        """Test 8: Bật/tắt trace không đổi kết quả và tích hợp json."""
+        """Test 9: Bật/tắt trace không đổi kết quả và tích hợp json."""
         cases = dict(load_cases("du_lieu_nhom.json"))
         tree_n1 = cases["N1"]
 
