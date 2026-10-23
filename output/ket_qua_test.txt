@@ -1,0 +1,25 @@
+test_T0_pruning_bounds_and_counts (test_nhom.TestNhom10.test_T0_pruning_bounds_and_counts)
+Test 4: Vết tính tay Alpha-Beta trên T0, cờ cận và số đếm. ... ok
+test_T1_false_tie (test_nhom.TestNhom10.test_T1_false_tie)
+Test 3: Kiểm tra cây T1 bắt lỗi hòa giả giữa các cận. ... ok
+test_am_va_khong_sua_input (test_nhom.TestNhom10.test_am_va_khong_sua_input)
+Test 1: Toàn điểm âm và bảo toàn mảng dữ liệu đầu vào. ... ok
+test_hoa_that_theo_LR_RL (test_nhom.TestNhom10.test_hoa_that_theo_LR_RL)
+Test 8: Hiện tượng hòa thật theo thứ tự duyệt LR/RL. ... ok
+test_invalid_leaf_data (test_nhom.TestNhom10.test_invalid_leaf_data)
+Test 7: Kiểm tra số lá không hợp lệ hoặc utility sai kiểu. ... ok
+test_n2_root_min (test_nhom.TestNhom10.test_n2_root_min)
+Test 6: Kiểm tra cây N2 có lượt đi đầu tiên là MIN. ... ok
+test_t0_parameter (test_nhom.TestNhom10.test_t0_parameter)
+Test 5: Khảo sát tham số T0(t) khi t in {10, 11, 14}. ... ok
+test_trace_bat_tat_va_tich_hop_json (test_nhom.TestNhom10.test_trace_bat_tat_va_tich_hop_json)
+Test 9: Bật/tắt trace không đổi kết quả và tích hợp json. ... ok
+test_utility_zero_va_pv (test_nhom.TestNhom10.test_utility_zero_va_pv)
+Test 2: Xử lý đúng utility 0 và kiểm tra đường đi tối ưu (PV). ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+OK
+
+EXIT_CODE=0
