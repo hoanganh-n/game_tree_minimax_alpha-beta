@@ -1,0 +1,9 @@
+﻿experiment,case,parameter,algorithm,order,value,action,visited,expanded,leaves,cutoffs,pruned_branches,max_depth,repeat,elapsed_ms
+custom,N1,,minimax,LR,13,A,31,15,16,0,0,4,1,0.12516100105131045
+custom,N1,,alphabeta,LR,13,A,21,12,9,4,4,4,1,0.11581800026760902
+custom,N1,,minimax,RL,13,A,31,15,16,0,0,4,1,0.10585000018181745
+custom,N1,,alphabeta,RL,13,A,31,15,16,0,0,4,1,0.142529999720864
+custom,N2,,minimax,LR,-13,B,15,7,8,0,0,3,1,0.04708099913841579
+custom,N2,,alphabeta,LR,-13,B,15,7,8,0,0,3,1,0.058818999605136923
+custom,N2,,minimax,RL,-13,B,15,7,8,0,0,3,1,0.04487000114750117
+custom,N2,,alphabeta,RL,-13,B,12,6,6,1,1,3,1,0.045931999920867383

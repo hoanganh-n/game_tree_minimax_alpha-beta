@@ -1,0 +1,1375 @@
+[
+  {
+    "algorithm": "minimax",
+    "order": "LR",
+    "value": 13,
+    "action": "A",
+    "visited": 31,
+    "expanded": 15,
+    "leaves": 16,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 4,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L04",
+      "L05",
+      "L06",
+      "L07",
+      "L08",
+      "L09",
+      "L10",
+      "L11",
+      "L12",
+      "L13",
+      "L14",
+      "L15",
+      "L16"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "A1",
+      "A11",
+      "L01",
+      "L02",
+      "A12",
+      "L03",
+      "L04",
+      "A2",
+      "A21",
+      "L05",
+      "L06",
+      "A22",
+      "L07",
+      "L08",
+      "B",
+      "B1",
+      "B11",
+      "L09",
+      "L10",
+      "B12",
+      "L11",
+      "L12",
+      "B2",
+      "B21",
+      "L13",
+      "L14",
+      "B22",
+      "L15",
+      "L16"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L01": {
+        "value": 24,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A11": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "L03": {
+        "value": 3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L04": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A12": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L04"
+      },
+      "A1": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "A11"
+      },
+      "L05": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L06": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A21": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "L06"
+      },
+      "L07": {
+        "value": 18,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L08": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "A2": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A21"
+      },
+      "A": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "L09": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L10": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "L09"
+      },
+      "L11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L12": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B12": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "L11"
+      },
+      "B1": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B11"
+      },
+      "L13": {
+        "value": -9,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L14": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B21": {
+        "value": -9,
+        "bound": "EXACT",
+        "action": "L13"
+      },
+      "L15": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L16": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L16"
+      },
+      "B2": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "B22"
+      },
+      "B": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B1"
+      },
+      "R": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": [
+      "R",
+      "A",
+      "A2",
+      "A21",
+      "L06"
+    ],
+    "trace": [],
+    "elapsed_ms": 0.12516100105131045,
+    "experiment": "custom",
+    "case": "N1",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "alphabeta",
+    "order": "LR",
+    "value": 13,
+    "action": "A",
+    "visited": 21,
+    "expanded": 12,
+    "leaves": 9,
+    "cutoffs": 4,
+    "pruned_branches": 4,
+    "max_depth": 4,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L05",
+      "L06",
+      "L07",
+      "L08",
+      "L09",
+      "L11"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "A1",
+      "A11",
+      "L01",
+      "L02",
+      "A12",
+      "L03",
+      "A2",
+      "A21",
+      "L05",
+      "L06",
+      "A22",
+      "L07",
+      "L08",
+      "B",
+      "B1",
+      "B11",
+      "L09",
+      "B12",
+      "L11"
+    ],
+    "pruned_roots": [
+      "L04",
+      "L10",
+      "L12",
+      "B2"
+    ],
+    "unvisited_nodes": [
+      "L04",
+      "L10",
+      "L12",
+      "B2",
+      "B21",
+      "L13",
+      "L14",
+      "B22",
+      "L15",
+      "L16"
+    ],
+    "returns": {
+      "L01": {
+        "value": 24,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A11": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "L03": {
+        "value": 3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A12": {
+        "value": 3,
+        "bound": "UPPER",
+        "action": "L03"
+      },
+      "A1": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "A11"
+      },
+      "L05": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L06": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A21": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "L06"
+      },
+      "L07": {
+        "value": 18,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L08": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A22": {
+        "value": -3,
+        "bound": "UPPER",
+        "action": "L08"
+      },
+      "A2": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A21"
+      },
+      "A": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "L09": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B11": {
+        "value": -5,
+        "bound": "UPPER",
+        "action": "L09"
+      },
+      "L11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B12": {
+        "value": -5,
+        "bound": "UPPER",
+        "action": "L11"
+      },
+      "B1": {
+        "value": -5,
+        "bound": "UPPER",
+        "action": "B11"
+      },
+      "B": {
+        "value": -5,
+        "bound": "UPPER",
+        "action": "B1"
+      },
+      "R": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": null,
+    "trace": [],
+    "elapsed_ms": 0.11581800026760902,
+    "experiment": "custom",
+    "case": "N1",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "minimax",
+    "order": "RL",
+    "value": 13,
+    "action": "A",
+    "visited": 31,
+    "expanded": 15,
+    "leaves": 16,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 4,
+    "leaf_order": [
+      "L16",
+      "L15",
+      "L14",
+      "L13",
+      "L12",
+      "L11",
+      "L10",
+      "L09",
+      "L08",
+      "L07",
+      "L06",
+      "L05",
+      "L04",
+      "L03",
+      "L02",
+      "L01"
+    ],
+    "visited_nodes": [
+      "R",
+      "B",
+      "B2",
+      "B22",
+      "L16",
+      "L15",
+      "B21",
+      "L14",
+      "L13",
+      "B1",
+      "B12",
+      "L12",
+      "L11",
+      "B11",
+      "L10",
+      "L09",
+      "A",
+      "A2",
+      "A22",
+      "L08",
+      "L07",
+      "A21",
+      "L06",
+      "L05",
+      "A1",
+      "A12",
+      "L04",
+      "L03",
+      "A11",
+      "L02",
+      "L01"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L16": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L15": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L16"
+      },
+      "L14": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L13": {
+        "value": -9,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B21": {
+        "value": -9,
+        "bound": "EXACT",
+        "action": "L13"
+      },
+      "B2": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "B22"
+      },
+      "L12": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B12": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "L11"
+      },
+      "L10": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L09": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "L09"
+      },
+      "B1": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B12"
+      },
+      "B": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B1"
+      },
+      "L08": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L07": {
+        "value": 18,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "L06": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L05": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A21": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "L06"
+      },
+      "A2": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A21"
+      },
+      "L04": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L03": {
+        "value": 3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A12": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L04"
+      },
+      "L02": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L01": {
+        "value": 24,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A11": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "A1": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": "A11"
+      },
+      "A": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "R": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": [
+      "R",
+      "A",
+      "A2",
+      "A21",
+      "L06"
+    ],
+    "trace": [],
+    "elapsed_ms": 0.10585000018181745,
+    "experiment": "custom",
+    "case": "N1",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "alphabeta",
+    "order": "RL",
+    "value": 13,
+    "action": "A",
+    "visited": 31,
+    "expanded": 15,
+    "leaves": 16,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 4,
+    "leaf_order": [
+      "L16",
+      "L15",
+      "L14",
+      "L13",
+      "L12",
+      "L11",
+      "L10",
+      "L09",
+      "L08",
+      "L07",
+      "L06",
+      "L05",
+      "L04",
+      "L03",
+      "L02",
+      "L01"
+    ],
+    "visited_nodes": [
+      "R",
+      "B",
+      "B2",
+      "B22",
+      "L16",
+      "L15",
+      "B21",
+      "L14",
+      "L13",
+      "B1",
+      "B12",
+      "L12",
+      "L11",
+      "B11",
+      "L10",
+      "L09",
+      "A",
+      "A2",
+      "A22",
+      "L08",
+      "L07",
+      "A21",
+      "L06",
+      "L05",
+      "A1",
+      "A12",
+      "L04",
+      "L03",
+      "A11",
+      "L02",
+      "L01"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L16": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L15": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L16"
+      },
+      "L14": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L13": {
+        "value": -9,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B21": {
+        "value": -9,
+        "bound": "UPPER",
+        "action": "L13"
+      },
+      "B2": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "B22"
+      },
+      "L12": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L11": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B12": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "L11"
+      },
+      "L10": {
+        "value": 29,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L09": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B11": {
+        "value": -5,
+        "bound": "UPPER",
+        "action": "L09"
+      },
+      "B1": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B12"
+      },
+      "B": {
+        "value": -5,
+        "bound": "EXACT",
+        "action": "B1"
+      },
+      "L08": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L07": {
+        "value": 18,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A22": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "L06": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L05": {
+        "value": 21,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A21": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "L06"
+      },
+      "A2": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A21"
+      },
+      "L04": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L03": {
+        "value": 3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A12": {
+        "value": -3,
+        "bound": "EXACT",
+        "action": "L04"
+      },
+      "L02": {
+        "value": 22,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L01": {
+        "value": 24,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A11": {
+        "value": 22,
+        "bound": "LOWER",
+        "action": "L02"
+      },
+      "A1": {
+        "value": 22,
+        "bound": "LOWER",
+        "action": "A11"
+      },
+      "A": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "R": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": null,
+    "trace": [],
+    "elapsed_ms": 0.142529999720864,
+    "experiment": "custom",
+    "case": "N1",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "minimax",
+    "order": "LR",
+    "value": -13,
+    "action": "B",
+    "visited": 15,
+    "expanded": 7,
+    "leaves": 8,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 3,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L04",
+      "L05",
+      "L06",
+      "L07",
+      "L08"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "A1",
+      "L01",
+      "L02",
+      "A2",
+      "L03",
+      "L04",
+      "B",
+      "B1",
+      "L05",
+      "L06",
+      "B2",
+      "L07",
+      "L08"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L01": {
+        "value": 14,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A1": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "L03": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L04": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A2": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "L03"
+      },
+      "A": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "L05": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L06": {
+        "value": -6,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B1": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": "L05"
+      },
+      "L07": {
+        "value": 17,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L08": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B2": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "B": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B2"
+      },
+      "R": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B"
+      }
+    },
+    "principal_variation": [
+      "R",
+      "B",
+      "B2",
+      "L08"
+    ],
+    "trace": [],
+    "elapsed_ms": 0.04708099913841579,
+    "experiment": "custom",
+    "case": "N2",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "alphabeta",
+    "order": "LR",
+    "value": -13,
+    "action": "B",
+    "visited": 15,
+    "expanded": 7,
+    "leaves": 8,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 3,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L04",
+      "L05",
+      "L06",
+      "L07",
+      "L08"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "A1",
+      "L01",
+      "L02",
+      "A2",
+      "L03",
+      "L04",
+      "B",
+      "B1",
+      "L05",
+      "L06",
+      "B2",
+      "L07",
+      "L08"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L01": {
+        "value": 14,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A1": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "L03": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L04": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A2": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "L03"
+      },
+      "A": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "L05": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L06": {
+        "value": -6,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B1": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": "L05"
+      },
+      "L07": {
+        "value": 17,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L08": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B2": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "B": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B2"
+      },
+      "R": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B"
+      }
+    },
+    "principal_variation": null,
+    "trace": [],
+    "elapsed_ms": 0.058818999605136923,
+    "experiment": "custom",
+    "case": "N2",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "minimax",
+    "order": "RL",
+    "value": -13,
+    "action": "B",
+    "visited": 15,
+    "expanded": 7,
+    "leaves": 8,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 3,
+    "leaf_order": [
+      "L08",
+      "L07",
+      "L06",
+      "L05",
+      "L04",
+      "L03",
+      "L02",
+      "L01"
+    ],
+    "visited_nodes": [
+      "R",
+      "B",
+      "B2",
+      "L08",
+      "L07",
+      "B1",
+      "L06",
+      "L05",
+      "A",
+      "A2",
+      "L04",
+      "L03",
+      "A1",
+      "L02",
+      "L01"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L08": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L07": {
+        "value": 17,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B2": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "L06": {
+        "value": -6,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L05": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B1": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": "L05"
+      },
+      "B": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B2"
+      },
+      "L04": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L03": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A2": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "L03"
+      },
+      "L02": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L01": {
+        "value": 14,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A1": {
+        "value": -15,
+        "bound": "EXACT",
+        "action": "L02"
+      },
+      "A": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A2"
+      },
+      "R": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B"
+      }
+    },
+    "principal_variation": [
+      "R",
+      "B",
+      "B2",
+      "L08"
+    ],
+    "trace": [],
+    "elapsed_ms": 0.04487000114750117,
+    "experiment": "custom",
+    "case": "N2",
+    "parameter": null,
+    "repeat": 1
+  },
+  {
+    "algorithm": "alphabeta",
+    "order": "RL",
+    "value": -13,
+    "action": "B",
+    "visited": 12,
+    "expanded": 6,
+    "leaves": 6,
+    "cutoffs": 1,
+    "pruned_branches": 1,
+    "max_depth": 3,
+    "leaf_order": [
+      "L08",
+      "L07",
+      "L06",
+      "L05",
+      "L04",
+      "L03"
+    ],
+    "visited_nodes": [
+      "R",
+      "B",
+      "B2",
+      "L08",
+      "L07",
+      "B1",
+      "L06",
+      "L05",
+      "A",
+      "A2",
+      "L04",
+      "L03"
+    ],
+    "pruned_roots": [
+      "A1"
+    ],
+    "unvisited_nodes": [
+      "A1",
+      "L01",
+      "L02"
+    ],
+    "returns": {
+      "L08": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L07": {
+        "value": 17,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B2": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "L08"
+      },
+      "L06": {
+        "value": -6,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L05": {
+        "value": -19,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B1": {
+        "value": -19,
+        "bound": "UPPER",
+        "action": "L05"
+      },
+      "B": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B2"
+      },
+      "L04": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L03": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A2": {
+        "value": 11,
+        "bound": "LOWER",
+        "action": "L03"
+      },
+      "A": {
+        "value": 11,
+        "bound": "LOWER",
+        "action": "A2"
+      },
+      "R": {
+        "value": -13,
+        "bound": "EXACT",
+        "action": "B"
+      }
+    },
+    "principal_variation": null,
+    "trace": [],
+    "elapsed_ms": 0.045931999920867383,
+    "experiment": "custom",
+    "case": "N2",
+    "parameter": null,
+    "repeat": 1
+  }
+]

@@ -96,12 +96,12 @@ Lá không đọc / mọi nút không thăm & [Điền] & [Điền]\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Trích một lần cắt: nút [Điền], alpha/beta [Điền], số trả [Điền], nhánh bỏ [Điền], hướng cận [Điền].\par\medskip
 \head{5. T(t): thay riêng L01}
-Công thức giá trị gốc theo từng khoảng t: [Điền.]\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: [Điền và giải thích.]\par\medskip
+Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t\le10$; $V(R)=t$ khi $10<t<12$; $V(R)=12$ khi $12\le t\le20$.\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: Tại $t=10$, A1 bắt đầu chọn A11 (hòa ưu tiên LR); khi $t>12$, A11 chuyển sang L02. L04 bị cắt khi $11\le\min(t,12)$, tức $t\ge11$.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
 \textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá AB / tệp}\\\midrule
-10 & [Điền] & [Điền] & [Điền]\\
-11 & [Điền] & [Điền] & [Điền]\\
-14 & [Điền] & [Điền] & [Điền]\\
+10 & 10 / A & R--A--A1--A11--L01 & 10 / CSV\\
+11 & 11 / A & R--A--A1--A11--L01 & 9 / CSV\\
+14 & 12 / A & R--A--A1--A11--L02 & 9 / CSV\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 \head{6. T1: kết quả điểm đúng nhưng action sai}
 Giá trị thật A/B/R: [Điền]. Số B trả và hướng cận: [Điền].\par Ảnh hưởng của >= khi đổi action; phản ứng của MIN; test phát hiện: [Điền.]\par\medskip
@@ -121,14 +121,14 @@ Năm mốc tham số và hai dòng affine nằm ở CSV các dòng [Điền]. D�
 \head{7. Hai cây riêng N1/N2}
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Nội dung} & \textbf{N1 (16 lá, MAX)} & \textbf{N2 (8 lá, MIN)}\\\midrule
-Dãy utility (hoặc dẫn JSON) & [Điền] & [Điền]\\
-Seed / cách tạo & [Điền] & [Điền]\\
-Giá trị / action LR & [Điền] & [Điền]\\
-Giá trị / action RL & [Điền] & [Điền]\\
-So sánh số lá MM và AB & [Điền] & [Điền]\\
+Dãy utility (hoặc dẫn JSON) & \shortstack[l]{24,22,3,-3,21,13,18,-3\\-5,29,-5,21,-9,29,29,-3} & \shortstack[l]{14,-15,11,12\\-19,-6,17,-13}\\
+Seed / cách tạo & 2579 / \texttt{tao\_du\_lieu.py} & 2579 / \texttt{tao\_du\_lieu.py}\\
+Giá trị / action LR & 13 / A & $-13$ / B\\
+Giá trị / action RL & 13 / A & $-13$ / B\\
+So sánh số lá MM và AB & MM: 16; AB: 9 (LR), 16 (RL) & MM: 8; AB: 8 (LR), 6 (RL)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
-Kỳ vọng tính tay độc lập của N2: [Điền / dẫn trang tính tay].\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: [Điền].\par\medskip
-Đo thời gian (tùy chọn): [Không thực hiện / Điền máy, 3 lần, trung vị, trace/step đã tắt].\par\medskip
+Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem bài tính tay N2.\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
+Đo thời gian (tùy chọn): Không thực hiện.\par\medskip
 \pagehead{05. KIỂM THỬ VÀ PHÁT HIỆN SAI LẦM}
 Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh / ngày chạy: [Điền].\par Tổng test / đạt / lỗi thực tế: [Điền]. Không điền PASS khi chưa chạy.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
