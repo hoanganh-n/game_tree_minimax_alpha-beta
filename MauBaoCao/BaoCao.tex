@@ -174,15 +174,15 @@ Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-1
 Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \code{python3 -m unittest -v test_nhom}; ngày chạy: 23/10/2026.\par Tổng test: 9; đạt: 9; thất bại/lỗi: 0. Kết quả này từ lần chạy trực tiếp; log nộp bài cần tạo bằng \code{python3 chay_kiem_thu.py}.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
 \textbf{STT} & \textbf{Test / dữ liệu} & \textbf{Kỳ vọng và cách suy ra} & \textbf{Kết quả} & \textbf{Người}\\\midrule
-1 & \code{test_01_am_va_khong_sua_input}; 8 lá âm & $A=-3$, $B=-4$, $R=-3$, chọn A ở cả MM/AB; mảng lá đầu vào giữ nguyên. & PASS & Người 1\\
-2 & \code{test_02_utility_zero_va_duong_di_toi_uu} & MM trả $(0,A)$; PV: R, A, A1, L01; đọc đủ 8 lá. & PASS & Người 1\\
-3 & \code{test_03_T1_false_tie}; T1: $[10,12,10,2]$, LR & $A=10$, $B=2$; cả MM và AB phải trả $(10,A)$, không chấp nhận hòa giả $(10,B)$. & PASS (đã chạy) & Người 2\\
-4 & \code{test_04_T0_pruning_bounds_and_counts}; T0/AB/LR & $(10,A)$; bỏ $L10,L12,B2$; cận \texttt{UPPER} tại $B11,B12,B$; $22=12+10$, 3 lần cắt/3 cạnh. Kiểm cả thứ tự lá và tập nút bỏ. & PASS (đã chạy) & Người 2\\
-5 & \code{test_05_t0_parameter}; $t=10,11,14$ & MM/AB trả value $10,11,12$, đều chọn A; AB đọc $10,9,9$ lá tương ứng. & PASS & Người 3\\
-6 & \code{test_06_n2_root_min}; N2 từ JSON & Gốc MIN; cả MM/AB với LR/RL trả $(-13,B)$. & PASS & Người 3\\
-7 & \code{test_07_invalid_leaf_data} & Báo \code{ValueError} với 3 lá, utility chuỗi hoặc bool. & PASS & Người 3\\
-8 & \code{test_08_hoa_that_theo_LR_RL}; $[2,5,2,7]$ & Hai nhánh cùng giá trị 2; cả MM/AB chọn A khi LR, B khi RL. & PASS & Người 4\\
-9 & \code{test_09_trace_bat_tat_va_tich_hop_json}; N1 & Bật/tắt trace AB giữ nguyên kết quả và số đếm được kiểm; trace tắt rỗng, bật có sự kiện; visited = expanded + leaves. & PASS & Người 4\\
+1 & \code{test_01_am_va_khong_sua_input}; 8 lá âm & $A=-3$, $B=-4$, $R=-3$, chọn A ở cả MM/AB; mảng lá đầu vào giữ nguyên. & PASS & Hiếu\\
+2 & \code{test_02_utility_zero_va_duong_di_toi_uu} & MM trả $(0,A)$; PV: R, A, A1, L01; đọc đủ 8 lá. & PASS & Hiếu\\
+3 & \code{test_03_T1_false_tie}; T1: $[10,12,10,2]$, LR & $A=10$, $B=2$; cả MM và AB phải trả $(10,A)$, không chấp nhận hòa giả $(10,B)$. & PASS & Minh\\
+4 & \code{test_04_T0_pruning_bounds_and_counts}; T0/AB/LR & $(10,A)$; bỏ $L10,L12,B2$; cận \texttt{UPPER} tại $B11,B12,B$; $22=12+10$, 3 lần cắt/3 cạnh. Kiểm cả thứ tự lá và tập nút bỏ. & PASS & Minh\\
+5 & \code{test_05_t0_parameter}; $t=10,11,14$ & MM/AB trả value $10,11,12$, đều chọn A; AB đọc $10,9,9$ lá tương ứng. & PASS & Ngân\\
+6 & \code{test_06_n2_root_min}; N2 từ JSON & Gốc MIN; cả MM/AB với LR/RL trả $(-13,B)$. & PASS & Ngân\\
+7 & \code{test_07_invalid_leaf_data} & Báo \code{ValueError} với 3 lá, utility chuỗi hoặc bool. & PASS & Ngân\\
+8 & \code{test_08_hoa_that_theo_LR_RL}; $[2,5,2,7]$ & Hai nhánh cùng giá trị 2; cả MM/AB chọn A khi LR, B khi RL. & PASS & Hoàng Anh\\
+9 & \code{test_09_trace_bat_tat_va_tich_hop_json}; N1 & Bật/tắt trace AB giữ nguyên kết quả và số đếm được kiểm; trace tắt rỗng, bật có sự kiện; visited = expanded + leaves. & PASS & Hoàng Anh\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Ba test có kỳ vọng tính tay độc lập: test 1 ($A=-3$, $B=-4$, $R=-3$); test 2 ($A=0$, $B=-1$, $R=0$, PV: R, A, A1, L01); test 3 ($A=10$, $B=2$, $R=10$). Các phép tính được ghi trong docstring của từng test.\par Test T1 có kiểm cả value lẫn action không? Có. Test 3 dùng \texttt{assertEqual} cho cả cặp \texttt{(value, action)} với kỳ vọng \texttt{(10, 'A')} ở hai thuật toán; kỳ vọng được suy ra từ $A=10$, $B=2$, không lấy kết quả của thuật toán này làm đáp án cho thuật toán kia.\par\medskip
 \head{8. Hai lỗi nhóm đã phân tích}
