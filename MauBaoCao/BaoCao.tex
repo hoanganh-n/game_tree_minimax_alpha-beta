@@ -118,9 +118,9 @@ Truyền / cập nhật cửa sổ & Gọi con với $\alpha,\beta$ hiện có. 
 \textbf{Tại MAX và MIN, số trả sớm là cận theo hướng nào?}\\ MAX cắt khi đạt ngưỡng $\beta$: số trả $r$ là cận dưới (\texttt{LOWER}), nghĩa là $V(u)\ge r$. MIN cắt khi đạt ngưỡng $\alpha$: $r$ là cận trên (\texttt{UPPER}), nghĩa là $V(u)\le r$. Mã phân loại bảo thủ theo cửa sổ lúc vào $(\alpha_{in},\beta_{in})$: $r\le\alpha_{in}$ là \texttt{UPPER}, $r\ge\beta_{in}$ là \texttt{LOWER}, còn lại là \texttt{EXACT}; lá luôn \texttt{EXACT}. Cờ cận không khẳng định nút đã cắt, vì ngay cả khi đã xét hết con, mã vẫn phân loại theo cửa sổ này.\par \textbf{Vì sao so sánh chọn action nghiêm nhưng cắt dùng cả dấu bằng?} MAX chỉ đổi action khi $\mathit{score}>\mathit{best}$, MIN khi $\mathit{score}<\mathit{best}$, để giữ con xét trước lúc hòa. Một cận bằng best chưa chứng minh hai nhánh có cùng giá trị thật (T1 là ví dụ). Cắt dùng cả dấu bằng vì nhánh còn lại không thể cải thiện giá trị tổ tiên đã có; việc bỏ nó không đổi giá trị gốc và phù hợp quy tắc giữ con trước.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XX}\toprule
 \textbf{Trường} & \textbf{Nhóm hiểu và kiểm tra thế nào?}\\\midrule
-visited = expanded + leaves & Mỗi lần vào \texttt{visit} đếm một nút: hoặc là lá đã đọc, hoặc là nút trong được mở rộng. T0/AB/LR: $22=12+10$; test 4 kiểm tra cả từng số và đẳng thức.\\
+visited = expanded + leaves & Mỗi lần vào \texttt{visit} đếm một nút: hoặc là lá đã đọc, hoặc là nút trong được mở rộng. T0 (Alpha--Beta, LR): $22=12+10$; test 4 kiểm tra cả từng số và đẳng thức.\\
 cutoffs / pruned\_branches & \texttt{cutoffs} đếm lần dừng có con còn lại; \texttt{pruned\_branches} đếm cạnh tới các con trực tiếp bị bỏ, không đếm toàn bộ lá bên dưới. T0/LR có 3 lần cắt, 3 cạnh bỏ nhưng 6 lá không đọc. Vượt ngưỡng ở con cuối không tăng hai bộ đếm.\\
-unvisited\_nodes / leaf\_order & \texttt{unvisited\_nodes} liệt kê mọi nút không được gọi \texttt{visit}, gồm cả nút trong; \texttt{leaf\_order} là thứ tự thực sự đọc lá. T0/AB/LR có 9 nút không thăm và đọc 10 lá; test 4 đối chiếu tập nút bỏ và đúng thứ tự lá.\\
+unvisited\_nodes / leaf\_order & \texttt{unvisited\_nodes} liệt kê mọi nút không được gọi \texttt{visit}, gồm cả nút trong; \texttt{leaf\_order} là thứ tự thực sự đọc lá. T0 (Alpha--Beta, LR) có 9 nút không thăm và đọc 10 lá; test 4 đối chiếu tập nút bỏ và đúng thứ tự lá.\\
 principal\_variation / returns & \texttt{principal\_variation} chỉ được dựng từ Minimax đầy đủ; Alpha--Beta trả \texttt{None} cho trường này. \texttt{returns} lưu value, action và cờ cận của từng nút đã thăm; không coi các action nội bộ của Alpha--Beta là đường chơi tối ưu đã được chứng minh.\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Cận thời gian xấu nhất; bộ nhớ stack, cây sẵn có và trace: Với hệ số phân nhánh $b$ và độ sâu $d$, Minimax và Alpha--Beta đều có thời gian xấu nhất $O(b^d)$ khi không cắt được. Trên cây nhị phân của bài, stack đệ quy tốn $O(d)$; cây dựng sẵn tốn $O(N)$ với $N$ là tổng số nút. Bản mã còn lưu danh sách nút, lá, \texttt{returns} và duyệt toàn cây để tìm nút không thăm, nên bộ nhớ phụ xấu nhất là $O(N)$ kể cả khi tắt trace. Bật trace lưu thêm $O(N)$ sự kiện trên cây nhị phân; không được gọi toàn bộ chương trình là chỉ tốn $O(d)$ bộ nhớ.\par\medskip
@@ -139,7 +139,7 @@ Trích một lần cắt: nút $B11$ (MIN), alpha/beta $[10,+\infty]$ (MAX đã 
 \head{5. T(t): thay riêng L01}
 Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t\le10$; $V(R)=t$ khi $10<t<12$; $V(R)=12$ khi $12\le t\le20$.\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: Tại $t=10$, A1 bắt đầu chọn A11 (hòa ưu tiên LR); khi $t>12$, A11 chuyển sang L02. L04 bị cắt khi $11\le\min(t,12)$, tức $t\ge11$.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
-\textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá AB / tệp}\\\midrule
+\textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá Alpha--Beta / tệp}\\\midrule
 10 & 10 / A & R--A--A1--A11--L01 & 10 / CSV\\
 11 & 11 / A & R--A--A1--A11--L01 & 9 / CSV\\
 14 & 12 / A & R--A--A1--A11--L02 & 9 / CSV\\
@@ -149,7 +149,7 @@ Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t\le10
 \pagehead{04. KẾT QUẢ CHUNG VÀ DỮ LIỆU RIÊNG}
 JSON/CSV chung: output/bat\_buoc.* (24 cấu hình). Lệnh và ngày chạy: \code{python3 run.py --batch --tag bat_buoc}, ngày 20/10/2026.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXXX}\toprule
-\textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá MM} & \textbf{Lá AB} & \textbf{Tiết kiệm}\\\midrule
+\textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá Minimax} & \textbf{Lá Alpha--Beta} & \textbf{Tiết kiệm}\\\midrule
 T0/LR & 10 / A & 16 & 10 & 37.5\% (bỏ 6 lá)\\
 T0/RL & 10 / A & 16 & 16 & 0\% (0 lá)\\
 T1/LR & 10 / A & 4 & 3 & 25\% (1 lá)\\
@@ -158,7 +158,7 @@ T2/LR & -4 / A & 8 & 8 & 0\% (0 lá)\\
 T2/RL & -4 / A & 8 & 7 & 12.5\% (1 lá)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Một phép tính tỷ lệ tiết kiệm: Trên T0/LR, Minimax duyệt 16 lá, Alpha--Beta duyệt 10 lá, tỷ lệ tiết kiệm lá là $(16-10)/16 = 37.5\%$. Một trường hợp không tiết kiệm lá: T0/RL (hoặc T1/RL, T2/LR) duyệt trúng nhánh xấu trước nên không cắt được lá nào (tiết kiệm 0\%).\par\medskip
-Năm mốc tham số và hai dòng affine nằm ở CSV các dòng từ 14 đến 25. Dự đoán / kết quả của u $\mapsto$ 2u-7: Giá trị gốc $V(R) = 2 \times 10 - 7 = 13$, hành động giữ nguyên là A, số lá và vị trí cắt tỉa không đổi (AB đọc 10 lá, 3 cutoffs); khớp dự đoán lý thuyết.\par\medskip
+Năm mốc tham số và hai dòng affine nằm ở CSV các dòng từ 14 đến 25. Dự đoán / kết quả của u $\mapsto$ 2u-7: Giá trị gốc $V(R) = 2 \times 10 - 7 = 13$, hành động giữ nguyên là A, số lá và vị trí cắt tỉa không đổi (Alpha--Beta đọc 10 lá, 3 lần cắt); khớp dự đoán lý thuyết.\par\medskip
 \head{7. Hai cây riêng N1/N2}
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Nội dung} & \textbf{N1 (16 lá, MAX)} & \textbf{N2 (8 lá, MIN)}\\\midrule
@@ -166,7 +166,7 @@ Dãy utility (hoặc dẫn JSON) & \shortstack[l]{24,22,3,-3,21,13,18,-3\\-5,29,
 Seed / cách tạo & 2579 / \texttt{tao\_du\_lieu.py} & 2579 / \texttt{tao\_du\_lieu.py}\\
 Giá trị / action LR & 13 / A & $-13$ / B\\
 Giá trị / action RL & 13 / A & $-13$ / B\\
-So sánh số lá MM và AB & MM: 16; AB: 9 (LR), 16 (RL) & MM: 8; AB: 8 (LR), 6 (RL)\\
+So sánh số lá Minimax và Alpha--Beta & Minimax: 16; Alpha--Beta: 9 (LR), 16 (RL) & Minimax: 8; Alpha--Beta: 8 (LR), 6 (RL)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem bài tính tay N2 trong \texttt{TinhTay.pdf}.\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
 Đo thời gian (tùy chọn): Không thực hiện.\par\medskip
@@ -174,15 +174,15 @@ Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-1
 Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \code{python3 -m unittest -v test_nhom}; ngày chạy: 23/10/2026.\par Tổng test: 9; đạt: 9; thất bại/lỗi: 0. Kết quả này từ lần chạy trực tiếp; log nộp bài cần tạo bằng \code{python3 chay_kiem_thu.py}.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
 \textbf{STT} & \textbf{Test / dữ liệu} & \textbf{Kỳ vọng và cách suy ra} & \textbf{Kết quả} & \textbf{Người}\\\midrule
-1 & \code{test_01_am_va_khong_sua_input}; 8 lá âm & $A=-3$, $B=-4$, $R=-3$, chọn A ở cả MM/AB; mảng lá đầu vào giữ nguyên. & PASS & Hiếu\\
-2 & \code{test_02_utility_zero_va_duong_di_toi_uu}; 8 lá (có 0) & MM trả $(0,A)$; PV: R, A, A1, L01; đọc đủ 8 lá. & PASS & Hiếu\\
-3 & \code{test_03_T1_false_tie}; T1: $[10,12,10,2]$, LR & $A=10$, $B=2$; cả MM và AB phải trả $(10,A)$, không chấp nhận hòa giả $(10,B)$. & PASS & Minh\\
-4 & \code{test_04_T0_pruning_bounds_and_counts}; T0/AB/LR & $(10,A)$; bỏ $L10,L12,B2$; cận \texttt{UPPER} tại $B11,B12,B$; $22=12+10$, 3 lần cắt/3 cạnh. Kiểm cả thứ tự lá và tập nút bỏ. & PASS & Minh\\
-5 & \code{test_05_t0_parameter}; $t=10,11,14$ & MM/AB trả value $10,11,12$, đều chọn A; AB đọc $10,9,9$ lá tương ứng. & PASS & Ngân\\
-6 & \code{test_06_n2_root_min}; N2 từ JSON & Gốc MIN; cả MM/AB với LR/RL trả $(-13,B)$. & PASS & Ngân\\
+1 & \code{test_01_am_va_khong_sua_input}; 8 lá âm & $A=-3$, $B=-4$, $R=-3$, chọn A ở cả Minimax và Alpha--Beta; mảng lá đầu vào giữ nguyên. & PASS & Hiếu\\
+2 & \code{test_02_utility_zero_va_duong_di_toi_uu}; 8 lá (có 0) & Minimax trả $(0,A)$; PV: R, A, A1, L01; đọc đủ 8 lá. & PASS & Hiếu\\
+3 & \code{test_03_T1_false_tie}; T1: $[10,12,10,2]$, LR & $A=10$, $B=2$; cả Minimax và Alpha--Beta phải trả $(10,A)$, không chấp nhận hòa giả $(10,B)$. & PASS & Minh\\
+4 & \code{test_04_T0_pruning_bounds_and_counts}; T0, Alpha--Beta, LR & $(10,A)$; bỏ $L10,L12,B2$; cận \texttt{UPPER} tại $B11,B12,B$; $22=12+10$, 3 lần cắt/3 cạnh. Kiểm cả thứ tự lá và tập nút bỏ. & PASS & Minh\\
+5 & \code{test_05_t0_parameter}; $t=10,11,14$ & Minimax và Alpha--Beta trả value $10,11,12$, đều chọn A; Alpha--Beta đọc $10,9,9$ lá tương ứng. & PASS & Ngân\\
+6 & \code{test_06_n2_root_min}; N2 từ JSON & Gốc MIN; cả Minimax và Alpha--Beta với LR/RL trả $(-13,B)$. & PASS & Ngân\\
 7 & \code{test_07_invalid_leaf_data}; 3 lá, chuỗi, bool & Báo \code{ValueError} với 3 lá, utility chuỗi hoặc bool. & PASS & Ngân\\
-8 & \code{test_08_hoa_that_theo_LR_RL}; $[2,5,2,7]$ & Hai nhánh cùng giá trị 2; cả MM/AB chọn A khi LR, B khi RL. & PASS & Hoàng Anh\\
-9 & \code{test_09_trace_bat_tat_va_tich_hop_json}; N1 & Bật/tắt trace AB giữ nguyên kết quả và số đếm được kiểm; trace tắt rỗng, bật có sự kiện; visited = expanded + leaves. & PASS & Hoàng Anh\\
+8 & \code{test_08_hoa_that_theo_LR_RL}; $[2,5,2,7]$ & Hai nhánh cùng giá trị 2; cả Minimax và Alpha--Beta chọn A khi LR, B khi RL. & PASS & Hoàng Anh\\
+9 & \code{test_09_trace_bat_tat_va_tich_hop_json}; N1 & Bật/tắt trace Alpha--Beta giữ nguyên kết quả và số đếm được kiểm; trace tắt rỗng, bật có sự kiện; visited = expanded + leaves. & PASS & Hoàng Anh\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Ba test có kỳ vọng tính tay độc lập: test 1 ($A=-3$, $B=-4$, $R=-3$); test 2 ($A=0$, $B=-1$, $R=0$, PV: R, A, A1, L01); test 3 ($A=10$, $B=2$, $R=10$). Các phép tính được ghi trong docstring của từng test.\par Test T1 có kiểm cả value lẫn action không? Có. Test 3 dùng \texttt{assertEqual} cho cả cặp \texttt{(value, action)} với kỳ vọng \texttt{(10, 'A')} ở hai thuật toán; kỳ vọng được suy ra từ $A=10$, $B=2$, không lấy kết quả của thuật toán này làm đáp án cho thuật toán kia.\par\medskip
 \head{8. Hai lỗi nhóm đã phân tích}
