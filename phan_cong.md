@@ -7,12 +7,14 @@
 
 ## 1. BẢNG TỔNG QUAN PHÂN CÔNG & TRÁCH NHIỆM
 
-| Thành viên | Mảng chủ trì | Bài tính tay / Khảo sát | 2 Test phụ trách (`test_nhom.py`) | Kiểm tra chéo |
+| Thành viên | Mảng chủ trì | Bài tính tay / Khảo sát | Test phụ trách (`test_nhom.py`) | Kiểm tra chéo |
 |---|---|---|---|---|
 | **Người 1** | Mô hình cây & Thuật toán Minimax | Bài B1 ($T_0$ Minimax, 16 lá) | • **Test 1:** Điểm âm + không sửa input<br>• **Test 2:** Utility 0 + đường đi tối ưu $PV$ | Đọc và giải thích vết Alpha–Beta (`output/trace_T0.json`) |
 | **Người 2** | Thuật toán Alpha–Beta & Cắt tỉa | Bài B2 ($T_0$ Alpha–Beta)<br>Bài B4 (Phân tích cây $T_1$) | • **Test 3:** Cây $T_1$ (hòa giả & action)<br>• **Test 4:** Cắt tỉa, `bound` & đẳng thức đếm | Đối chiếu bảng Minimax của Người 1 với kết quả `returns` |
-| **Người 3** | Dữ liệu riêng & Khảo sát tham số | Bài B3 (Khảo sát $T(t)$, affine)<br>Tính tay cây riêng $N_2$ (8 lá, gốc MIN) | • **Test 5:** Cây riêng $N_2$ (gốc MIN)<br>• **Test 6:** Bắt lỗi số lá / sai kiểu dữ liệu | Kiểm tra các mốc tham số $t$ trong JSON thực nghiệm |
-| **Người 4 (Nhóm trưởng)** | Thực nghiệm hệ thống, Tích hợp & Báo cáo | Tính nhẩm kịch bản test tích hợp | • **Test 7:** Hòa thật theo thứ tự LR/RL<br>• **Test 8:** Bật/tắt trace & tích hợp JSON | Kiểm tra toàn bộ file JSON, CSV, 8 unit test và đóng gói |
+| **Người 3** | Dữ liệu riêng & Khảo sát tham số | Bài B3 (Khảo sát $T(t)$, affine)<br>Tính tay cây riêng $N_2$ (8 lá, gốc MIN) | • **Test 5:** Tham số $T_0(t)$ tại $t=10,11,14$<br>• **Test 6:** Cây riêng $N_2$ (gốc MIN)<br>• **Test 7:** Bắt lỗi số lá / sai kiểu dữ liệu | Kiểm tra các mốc tham số $t$ trong JSON thực nghiệm |
+| **Người 4 (Nhóm trưởng)** | Thực nghiệm hệ thống, Tích hợp & Báo cáo | Tính nhẩm kịch bản test tích hợp | • **Test 8:** Hòa thật theo thứ tự LR/RL<br>• **Test 9:** Bật/tắt trace & tích hợp JSON | Kiểm tra toàn bộ file JSON, CSV, 9 unit test và đóng gói |
+
+Bộ test hiện có **9 test** (phân bổ 2–2–3–2), đáp ứng yêu cầu ít nhất 8 test và mỗi người ít nhất 2 test. Số test bên dưới khớp tiền tố `test_01` đến `test_09` trong mã nguồn.
 
 ---
 
@@ -58,11 +60,12 @@
 * **Bài tính tay nộp bài:**
   * *Tính tay độc lập trên cây riêng $N_2$ (8 lá, gốc MIN):* Vẽ cây 8 lá từ dữ liệu sinh ra, tính tay từng bước theo cả Minimax và Alpha–Beta (chú ý gốc là MIN chọn giá trị nhỏ nhất). Xác định giá trị gốc, action và các vết cắt tỉa.
   * *Khảo sát tham số $T(t)$ (Bài B3):* Khảo sát cây $T_0$ khi thay lá đầu tiên $L_{01} = t \in \{8, 10, 11, 12, 14\}$. Tìm công thức $V(R)$ theo $t$, ngưỡng đổi action từ $A$ sang $B$, ngưỡng cắt bỏ lá $L_{04}$. Khảo sát biến đổi affine $u \mapsto 2u - 7$.
-* **2 Unit Test phụ trách viết vào `test_nhom.py`:**
-  * **Test 5 (Tính tay độc lập 3):** Chạy kiểm thử trên cây riêng $N_2$ (gốc MIN), so sánh với kết quả tính tay độc lập của Người 3.
-  * **Test 6:** Bắt lỗi ngoại lệ khi số lá không hợp lệ (không phải lũy thừa của 2) hoặc chứa ký tự/sai kiểu dữ liệu (chuỗi, số thực, bool).
+* **3 Unit Test phụ trách trong `test_nhom.py`:**
+  * **Test 5 — `test_05_t0_parameter`:** Với $t=10,11,14$, kiểm tra cả Minimax và Alpha–Beta trả lần lượt $(10,A)$, $(11,A)$, $(12,A)$; số lá Alpha–Beta đọc lần lượt là 10, 9, 9.
+  * **Test 6 — `test_06_n2_root_min`:** Kiểm tra N2 có gốc MIN; cả hai thuật toán với LR/RL đều trả `value = -13`, `action = B`.
+  * **Test 7 — `test_07_invalid_leaf_data`:** Kiểm tra `ValueError` với 3 lá, utility chuỗi hoặc bool. Hiện test chưa kiểm tra utility số thực.
 * **Phần viết báo cáo:** Soạn nháp Mục 5 (Khảo sát tham số) và Mục 7 (Bảng kết quả 2 cây riêng $N_1, N_2$).
-* **Bàn giao cho Nhóm trưởng:** File `du_lieu_nhom.json` và số seed; file viết tay/PDF bài tính tay $N_2$ và $T(t)$; mã nguồn 2 hàm test; nội dung nháp Mục 5 & 7.
+* **Bàn giao cho Nhóm trưởng:** File `du_lieu_nhom.json` và số seed; file viết tay/PDF bài tính tay $N_2$ và $T(t)$; mã nguồn 3 hàm test; nội dung nháp Mục 5 & 7.
 
 ---
 
@@ -72,10 +75,10 @@
   * Chạy 8 cấu hình riêng: `python run.py --data du_lieu_nhom.json --tag tu_tao` (xuất ra `output/tu_tao.json` và `.csv`).
   * Xuất vết trace phục vụ demo: `python run.py --case T0 --algo alphabeta --trace --tag trace_T0`.
 * **2 Unit Test phụ trách viết vào `test_nhom.py`:**
-  * **Test 7 (Tính tay độc lập 4):** Hiện tượng hòa thật theo thứ tự duyệt LR/RL (chọn đúng nhánh con tương ứng theo hướng duyệt).
-  * **Test 8:** Bật/tắt trace không làm thay đổi kết quả thuật toán và tích hợp kiểm tra dữ liệu file `du_lieu_nhom.json`.
+  * **Test 8 — `test_08_hoa_that_theo_LR_RL`:** Với lá `[2,5,2,7]`, cả hai thuật toán trả value 2; LR chọn A, RL chọn B khi hòa thật.
+  * **Test 9 — `test_09_trace_bat_tat_va_tich_hop_json`:** Nạp N1 từ `du_lieu_nhom.json`; bật/tắt trace Alpha–Beta giữ nguyên value, action và các số đếm được kiểm tra; trace tắt rỗng, trace bật có sự kiện; kiểm tra `visited == expanded + leaves`.
 * **Tích hợp kiểm thử & Chất lượng:**
-  * Gom 8 test của cả 4 người vào `test_nhom.py`.
+  * Tích hợp 9 test vào `test_nhom.py`: Người 1 phụ trách 1–2, Người 2 phụ trách 3–4, Người 3 phụ trách 5–7, Người 4 phụ trách 8–9. Mỗi người có ít nhất 2 test.
   * Chạy kiểm thử chính thức để xuất file log nộp bài: `python3 chay_kiem_thu.py` (sinh ra `output/ket_qua_test.txt`).
 * **Hoàn thiện bộ hồ sơ nộp bài:**
   * Ghép bài tính tay của Người 1, 2, 3 thành file duy nhất: `TinhTay.pdf` 
