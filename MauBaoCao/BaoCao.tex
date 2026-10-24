@@ -70,9 +70,9 @@ Các nút trong không có điểm riêng; giá trị của chúng là giá tr�
 Utility 0 là một kết quả hợp lệ (ví dụ hòa), khác hoàn toàn với \texttt{None} (``không phải lá'').\par\medskip
 
 \textbf{Tại sao chọn lá lớn nhất chưa phải chiến lược Minimax? Một đường chơi khác chính sách thế nào?}
-Lá lớn nhất $L14 = 101$ nằm dưới $B \to B2 \to B21$. Nếu MAX chọn $B$ thì quyền quyết định tiếp theo thuộc về MIN; MIN sẽ chọn $B1$ (giá trị 4) chứ không chọn $B2$ (giá trị 100). Do đó chọn $B$ chỉ đảm bảo 4, kém hơn 10 khi chọn $A$; Minimax giả định đối thủ chơi tối ưu nên không thể ``hy vọng'' MIN đi vào $B2$.
+Lá lớn nhất $L14 = 101$ nằm dưới $B \to B2 \to B21$. Nếu MAX chọn $B$ thì quyền quyết định tiếp theo thuộc về MIN; MIN sẽ chọn $B1$ (giá trị 4) chứ không chọn $B2$ (giá trị 100). Do đó chọn $B$ chỉ đảm bảo 4, kém hơn 10 khi chọn $A$; Minimax giả định đối thủ chơi tối ưu nên không thể hy vọng MIN đi vào $B2$.
 Một đường chơi (ví dụ $R \to A \to A1 \to A11 \to L01$) chỉ là một chuỗi nước đi định sẵn, ngầm giả định đối thủ đi đúng như ta đoán.
-Chính sách thì quy định nước đi của MAX tại \emph{mọi} nút MAX có thể gặp, ứng với mọi phản ứng của MIN: chọn $A$; nếu MIN chọn $A1$ thì chọn $A12$, nếu MIN chọn $A2$ thì chọn $A22$. Giá trị 10 là mức chính sách này đảm bảo dù MIN đi thế nào; đường $R \to A \to A1 \to A12 \to L04$ chỉ là đường xảy ra khi cả hai bên cùng chơi tối ưu (principal variation).\par\medskip
+Chính sách thì quy định nước đi của MAX tại \emph{mọi} nút MAX có thể gặp, ứng với mọi phản ứng của MIN: chọn $A$; nếu MIN chọn $A1$ thì chọn $A12$, nếu MIN chọn $A2$ thì chọn $A22$. Giá trị 10 là mức chính sách này đảm bảo dù MIN đi thế nào; đường $R \to A \to A1 \to A12 \to L04$ chỉ là đường xảy ra khi cả hai bên cùng chơi tối ưu.\par\medskip
 
 \textbf{Phần mã dùng nguyên, phần nhóm sửa/thêm.}
 Dùng nguyên, không sửa thuật toán: \texttt{tree\_model.py} (\texttt{make\_tree}, \texttt{walk}, \texttt{validate\_tree}, \texttt{load\_cases}), \texttt{search.py} (\texttt{solve}), \texttt{data\_cases.py}, \texttt{run.py}, \texttt{tao\_du\_lieu.py}, \texttt{chay\_kiem\_thu.py}, \texttt{dong\_goi.py}.
@@ -101,10 +101,18 @@ def minimax(u):
             best, action = value, c    # so sanh nghiem: hoa giu con truoc
     return best, action
 \end{lstlisting}
-\textbf{Vì sao khởi tạo $-\infty$ / $+\infty$?} Vì $\max(-\infty, x) = x$ và $\min(+\infty, x) = x$ với mọi $x$: con đầu tiên luôn ghi đè \texttt{best}, nên giá trị trả về luôn là giá trị của một con thật. Nếu khởi tạo MAX bằng 0, cây toàn điểm âm (T2, test 1) sẽ trả 0 -- con số không ứng với lá nào.\par
+\textbf{Vì sao khởi tạo $-\infty$ / $+\infty$?} Vì $\max(-\infty, x) = x$ và $\min(+\infty, x) = x$ với mọi utility hợp lệ $x$: con đầu tiên luôn ghi đè \texttt{best}, nên giá trị được chọn lấy từ kết quả của một con đã xét.
+Nếu khởi tạo \texttt{best} tại MAX bằng 0 trên cây toàn điểm âm (T2, test 1), \texttt{best} có thể giữ nguyên 0 thay vì một kết quả âm, còn \texttt{action} vẫn là \texttt{None}, vì không có kết quả con nào lớn hơn 0.\par
 \textbf{Vì sao utility 0 không bị coi là ``chưa kết thúc''?} Lá được nhận biết bằng \texttt{node.utility is not None}, không phải \texttt{if node.utility}. Nếu dùng phép thử đúng/sai, lá có utility 0 bị xem như nút trong không có con và kết quả sai; \texttt{None} mới là dấu hiệu ``không phải lá'' (test 2 kiểm tra điều này).\par\medskip
 
-\textbf{Giải thích alpha, beta và fail-soft:} \\$\alpha$ là mức MAX đã có thể đảm bảo, còn $\beta$ là mức MIN đã có thể đảm bảo trên đường tìm kiếm hiện tại. Gốc nhận $[-\infty,+\infty]$; mỗi con nhận cửa sổ hiện có của cha, không khởi tạo lại giữa các con. Sau khi xét con, MAX tăng $\alpha$ theo \texttt{best}, MIN giảm $\beta$ theo \texttt{best}. Khi MAX đạt $\mathit{best}\ge\beta$ hoặc MIN đạt $\mathit{best}\le\alpha$, các con còn lại không thể cải thiện lựa chọn của tổ tiên nên được bỏ qua. Fail-soft trả nguyên \texttt{best}, kể cả khi nằm ngoài cửa sổ, thay vì ép về $\alpha$ hoặc $\beta$; vì vậy số trả có thể chỉ là cận, không phải giá trị Minimax chính xác của nút.\par\smallskip
+\textbf{Giải thích alpha, beta và fail-soft:} \\
+Trên đường tìm kiếm hiện tại, MAX đã có phương án để nhận được ít nhất $\alpha$ điểm, còn MIN đã có phương án để MAX nhận không quá $\beta$ điểm. Cả hai ngưỡng đều tính theo utility của MAX và được truyền từ các nút tổ tiên xuống.
+Gốc nhận $[-\infty,+\infty]$; mỗi con nhận cửa sổ hiện có của cha, không khởi tạo lại giữa các con cùng cha.
+Ví dụ trên $T_0$, sau khi $A1$ trả về 10, nút $A$ (MIN) đã có lựa chọn $A1$ để giới hạn điểm của MAX ở mức 10. Vì thế, $A$ đặt $\beta=10$ và truyền ngưỡng này khi xét $A2$. Ngưỡng đó không khẳng định giá trị của $A2$ phải nhỏ hơn hoặc bằng 10; nó cho biết MIN đã có một lựa chọn khác đạt mức 10.\par\smallskip
+Sau khi nhận kết quả từ con, cập nhật \texttt{best} và \texttt{action} bằng so sánh nghiêm, rồi kiểm tra dừng: MAX khi $\mathit{best}\ge\beta$, MIN khi $\mathit{best}\le\alpha$. Khi đó, các con còn lại không thể cải thiện lựa chọn của tổ tiên nên được bỏ qua.
+Nếu chưa dừng, MAX cập nhật $\alpha=\max(\alpha,\mathit{best})$, MIN cập nhật $\beta=\min(\beta,\mathit{best})$ để xét con tiếp theo.
+Fail-soft trả nguyên \texttt{best}, kể cả khi nằm ngoài cửa sổ, thay vì ép về $\alpha$ hoặc $\beta$; vì vậy số trả có thể chỉ là cận, không phải giá trị Minimax chính xác của nút.
+Với cùng cây, thứ tự duyệt và quy tắc xử lý hòa, Alpha--Beta bảo toàn cả \texttt{value} và \texttt{action} tại gốc như Minimax.\par\smallskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.25}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Khối xử lý} & \textbf{Mã giả / giải thích của nhóm} & \textbf{Tệp và dòng}\\\midrule
 Kiểm tra lá & Nếu $u$ là lá: trả \texttt{(utility, None)}. So sánh với \texttt{None} nên lá 0 vẫn là lá. & \texttt{search.py} dòng 32--36\\
@@ -114,6 +122,7 @@ Cập nhật hành động & MAX: nếu $\mathit{score} > \mathit{best}$; MIN: n
 Truyền / cập nhật cửa sổ & Gọi con với $\alpha,\beta$ hiện có. Nếu chưa dừng: MAX cập nhật $\alpha=\max(\alpha,\mathit{best})$; MIN cập nhật $\beta=\min(\beta,\mathit{best})$. & \texttt{search.py} dòng 43, 59--60; gốc dòng 71\\
 Điều kiện cắt / trả về & MAX dừng khi $\mathit{best}\ge\beta$; MIN dừng khi $\mathit{best}\le\alpha$. Chỉ đếm cắt khi còn con bị bỏ; trả \texttt{best, action} và gán cờ theo cửa sổ lúc vào. & \texttt{search.py} dòng 49--69\\
 \bottomrule\end{tabularx}\endgroup\par\smallskip
+\clearpage
 \head{3. Những quy tắc không được nhầm}
 \textbf{Tại MAX và MIN, số trả sớm là cận theo hướng nào?}\\ MAX cắt khi đạt ngưỡng $\beta$: số trả $r$ là cận dưới (\texttt{LOWER}), nghĩa là $V(u)\ge r$. MIN cắt khi đạt ngưỡng $\alpha$: $r$ là cận trên (\texttt{UPPER}), nghĩa là $V(u)\le r$. Mã phân loại bảo thủ theo cửa sổ lúc vào $(\alpha_{in},\beta_{in})$: $r\le\alpha_{in}$ là \texttt{UPPER}, $r\ge\beta_{in}$ là \texttt{LOWER}, còn lại là \texttt{EXACT}; lá luôn \texttt{EXACT}. Cờ cận không khẳng định nút đã cắt, vì ngay cả khi đã xét hết con, mã vẫn phân loại theo cửa sổ này.\par \textbf{Vì sao so sánh chọn action nghiêm nhưng cắt dùng cả dấu bằng?} MAX chỉ đổi action khi $\mathit{score}>\mathit{best}$, MIN khi $\mathit{score}<\mathit{best}$, để giữ con xét trước lúc hòa. Một cận bằng best chưa chứng minh hai nhánh có cùng giá trị thật (T1 là ví dụ). Cắt dùng cả dấu bằng vì nhánh còn lại không thể cải thiện giá trị tổ tiên đã có; việc bỏ nó không đổi giá trị gốc và phù hợp quy tắc giữ con trước.\par\smallskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.25}\begin{tabularx}{\linewidth}{XX}\toprule
@@ -123,10 +132,14 @@ cutoffs / pruned\_branches & \texttt{cutoffs} đếm lần dừng có con còn l
 unvisited\_nodes / leaf\_order & \texttt{unvisited\_nodes} liệt kê mọi nút không được gọi \texttt{visit}, gồm cả nút trong; \texttt{leaf\_order} là thứ tự thực sự đọc lá. T0 (Alpha--Beta, LR) có 9 nút không thăm và đọc 10 lá; test 4 đối chiếu tập nút bỏ và đúng thứ tự lá.\\
 principal\_variation / returns & \texttt{principal\_variation} chỉ được dựng từ Minimax đầy đủ; Alpha--Beta trả \texttt{None} cho trường này. \texttt{returns} lưu value, action và cờ cận của từng nút đã thăm; không coi các action nội bộ của Alpha--Beta là đường chơi tối ưu đã được chứng minh.\\
 \bottomrule\end{tabularx}\endgroup\par\smallskip
-Cận thời gian xấu nhất; bộ nhớ stack, cây sẵn có và trace: Với hệ số phân nhánh $b$ và độ sâu $d$, Minimax và Alpha--Beta đều có thời gian xấu nhất $O(b^d)$ khi không cắt được. Trên cây nhị phân của bài, stack đệ quy tốn $O(d)$; cây dựng sẵn tốn $O(N)$ với $N$ là tổng số nút. Bản mã còn lưu danh sách nút, lá, \texttt{returns} và duyệt toàn cây để tìm nút không thăm, nên bộ nhớ phụ xấu nhất là $O(N)$ kể cả khi tắt trace. Bật trace lưu thêm $O(N)$ sự kiện trên cây nhị phân; không được gọi toàn bộ chương trình là chỉ tốn $O(d)$ bộ nhớ.\par\medskip
+\textbf{Thời gian và bộ nhớ.}
+Với hệ số phân nhánh $b$ và độ sâu $d$, Minimax có thời gian xấu nhất $O(b^d)$ do phải duyệt toàn bộ cây. Alpha--Beta cũng có thời gian xấu nhất $O(b^d)$ khi không cắt được nhánh nào.\par
+Về bộ nhớ, tại mỗi thời điểm, các lời gọi đệ quy đang hoạt động nằm trên một đường từ gốc xuống nút hiện tại, nên stack đệ quy tốn $O(d)$. Cây được dựng sẵn trong bộ nhớ tốn $O(N)$, với $N$ là tổng số nút.\par
+Trong hàm \texttt{solve()} của tệp \texttt{search.py}, chương trình còn lưu các nút đã thăm (\texttt{visited\_nodes}), thứ tự đọc lá (\texttt{leaf\_order}) và kết quả trả về tại từng nút (\texttt{returns}). Chương trình cũng tạo danh sách toàn bộ nút để xác định các nút không được thăm (\texttt{unvisited\_nodes}). Các cấu trúc này cần bộ nhớ phụ $O(N)$ trong trường hợp xấu nhất, kể cả khi tắt trace. Khi bật trace, chương trình lưu thêm $O(N)$ sự kiện trên cây nhị phân của bài, nên tổng bộ nhớ phụ vẫn là $O(N)$.\par\medskip
 \pagehead{03. ĐỐI CHIẾU TÍNH TAY VÀ MÃ}
-PDF bài tính tay: TinhTay.pdf, trang [Điền]. Ngày ghi dự đoán trước khi chạy: [Điền].\par\medskip
+PDF bài tính tay: \texttt{TinhTay.pdf}, trang 1--14. Ngày ghi dự đoán trước khi chạy: 22/10/2026.\par\medskip
 \head{4. T0: Minimax và Alpha–Beta}
+Minh chứng tính tay: \texttt{TinhTay.pdf}, trang 1--3 (B1) và trang 4--6 (B2). Đối chiếu với \texttt{output/bat\_buoc.json}, các bản ghi có \texttt{case=T0}, \texttt{order=LR} cho hai thuật toán.\par\smallskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Nội dung} & \textbf{Dự đoán bằng tay} & \textbf{Kết quả code / có khớp?}\\\midrule
 Giá trị / hành động gốc & $A=\min(10,13)=10$; $B=\min(4,100)=4$; $R=10$, chọn $A$ (LR). & Minimax và Alpha--Beta đều trả $(10,A)$; khớp.\\
@@ -136,20 +149,38 @@ Gốc nhánh cắt / số cạnh & Tại $B11$ bỏ $L10$; tại $B12$ bỏ $L12
 Lá không đọc / mọi nút không thăm & 6 lá: $L10,L12,L13,L14,L15,L16$. Thêm $B2,B21,B22$ thành 9 nút không thăm. & Alpha--Beta bỏ đúng các nút trên, đọc $L01$--$L09$ rồi $L11$; Minimax đọc đủ 16 lá. Khớp.\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Trích một lần cắt: nút $B11$ (MIN), alpha/beta $[10,+\infty]$ (MAX đã có 10 từ $A$), số trả $4$ sau khi đọc $L09$, nhánh bỏ $B11\to L10$ vì $4\le10$, hướng cận \texttt{UPPER}: $V(B11)\le4$, không phải cận dưới.\par\medskip
+\textbf{Khi chuyển từ A sang B và ý nghĩa phần cây bị cắt.}
+Sau khi xét $A$, gốc giữ $\alpha=10$ khi chuyển sang $B$; không khởi tạo lại $\alpha$ giữa hai nút con. Cây con $B2$ bị cắt hoàn toàn nên lần chạy Alpha--Beta này không cung cấp giá trị thật của các nút trong $B2$. Giá trị $V(B2)=100$ dùng trong bảng tính tay được suy ra từ tính tay hoặc Minimax đầy đủ; không lấy từ lần chạy Alpha--Beta trên.\par\medskip
 \head{5. T(t): thay riêng L01}
-Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t\le10$; $V(R)=t$ khi $10<t<12$; $V(R)=12$ khi $12\le t\le20$.\par Ngưỡng đổi đường chơi và ngưỡng cắt L04: Tại $t=10$, A1 bắt đầu chọn A11 (hòa ưu tiên LR); khi $t>12$, A11 chuyển sang L02. L04 bị cắt khi $11\le\min(t,12)$, tức $t\ge11$.\par\medskip
+Minh chứng tính tay: \texttt{TinhTay.pdf}, trang 7--10 (B3); bảng đường chơi theo khoảng ở trang 8, ba trường hợp cụ thể ở trang 9--10.\par
+Công thức giá trị gốc theo từng khoảng t: $V(R)=10$ khi $0\le t<10$; $V(R)=t$ khi $10\le t \le12$; $V(R)=12$ khi $12< t\le20$.\par
+\textbf{Đường chơi tối ưu theo quy tắc hòa LR.}
+\[
+\begin{array}{ll}
+0\le t<10: & R\to A\to A1\to A12\to L04,\\
+10\le t\le12: & R\to A\to A1\to A11\to L01,\\
+12<t\le20: & R\to A\to A1\to A11\to L02.
+\end{array}
+\]
+Tại $t=10$, $A1$ chọn $A11$ do hai con cùng giá trị 10 và $A11$ được xét trước. Tại $t=12$, $A11$ vẫn chọn $L01$ do hai lá cùng giá trị 12; chỉ khi $t>12$ mới chuyển sang $L02$.\par
+\textbf{Ngưỡng xuất hiện nhánh cắt L04.}
+Sau khi xét $A11$, $A1$ truyền $\alpha=\min(t,12)$ xuống $A12$. Tại $A12$ (MIN), đọc $L03=11$ thì cắt $L04$ khi $11\le\min(t,12)$, tương đương $t\ge11$. Như vậy, ngưỡng cắt $t=11$ khác với các mốc đổi đường chơi ở 10 và 12.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
-\textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá Alpha--Beta / tệp}\\\midrule
-10 & 10 / A & R--A--A1--A11--L01 & 10 / CSV\\
-11 & 11 / A & R--A--A1--A11--L01 & 9 / CSV\\
-14 & 12 / A & R--A--A1--A11--L02 & 9 / CSV\\
+\textbf{t} & \textbf{Value / action} & \textbf{Đường chơi thật} & \textbf{Lá AB / tệp}\\\midrule
+10 & 10 / A & R--A--A1--A11--L01 & 10 / \texttt{bat\_buoc.csv}\\
+11 & 11 / A & R--A--A1--A11--L01 & 9 / \texttt{bat\_buoc.csv}\\
+14 & 12 / A & R--A--A1--A11--L02 & 9 / \texttt{bat\_buoc.csv}\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
+Tệp trong bảng là \texttt{output/bat\_buoc.csv}; các trường hợp $t=10,11,14$ lần lượt ứng với dòng 17, 19, 23, tính cả dòng tiêu đề. Cả Minimax và Alpha--Beta LR đều cho value/action như bảng; đường chơi được lấy từ trường \texttt{principal\_variation} của Minimax trong tệp \code{output/bat_buoc.json}.\par
 \head{6. T1: kết quả điểm đúng nhưng action sai}
+Minh chứng tính tay: \texttt{TinhTay.pdf}, trang 11 (B4); đối chiếu các bản ghi \texttt{case=T1}, \texttt{order=LR} trong \texttt{output/bat\_buoc.json}.\par
 \textbf{Giá trị thật A/B/R:}\\ $A=\min(10,12)=10$, $B=\min(10,2)=2$, $R=\max(10,2)=10$, nên MAX phải chọn $A$. Số B trả và hướng cận: Với LR, xét $A$ trước làm $\alpha_R=10$. Tại $B$ (MIN), đọc $L03=10$ đã đạt $\mathit{best}\le\alpha$ nên cắt $L04=2$ và trả 10 với cờ \texttt{UPPER}: $V(B)\le10$, không có nghĩa $V(B)=10$.\par \textbf{Ảnh hưởng của >= khi đổi action; phản ứng của MIN; test phát hiện:}\\ Nếu đổi phép chọn action ở MAX từ $>$ thành $\ge$, gốc sẽ lấy số cận 10 của $B$ làm hòa với giá trị chính xác 10 của $A$ rồi đổi sang $B$. Kết quả báo $(10,B)$ có điểm đúng nhưng hành động sai: khi chơi thật, MIN chọn $L04=2$, MAX chỉ nhận 2. Giữ so sánh nghiêm làm gốc giữ $A$. Test 3, \texttt{test\_03\_T1\_false\_tie}, kiểm tra đồng thời cặp \texttt{(value, action) = (10, A)} cho cả Minimax và Alpha--Beta; chỉ kiểm tra value sẽ không bắt được lỗi.\par\medskip
+Không cần bỏ dấu bằng trong điều kiện cắt; để sửa lỗi chọn hành động, cần giữ so sánh nghiêm khi cập nhật action: MAX dùng $\mathit{score}>\mathit{best}$, MIN dùng $\mathit{score}<\mathit{best}$.\par\medskip
 \pagehead{04. KẾT QUẢ CHUNG VÀ DỮ LIỆU RIÊNG}
-JSON/CSV chung: output/bat\_buoc.* (24 cấu hình). Lệnh và ngày chạy: \code{python3 run.py --batch --tag bat_buoc}, ngày 20/10/2026.\par\medskip
+JSON/CSV chung: output/bat\_buoc.* (24 cấu hình).\par
+Lệnh và ngày chạy: \texttt{python3 run.py -{}-batch -{}-tag bat\_buoc}, ngày 23/10/2026.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXXX}\toprule
-\textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá Minimax} & \textbf{Lá Alpha--Beta} & \textbf{Tiết kiệm}\\\midrule
+\textbf{Cây / thứ tự} & \textbf{Value / action} & \textbf{Lá MM} & \textbf{Lá AB} & \textbf{Tiết kiệm}\\\midrule
 T0/LR & 10 / A & 16 & 10 & 37.5\% (bỏ 6 lá)\\
 T0/RL & 10 / A & 16 & 16 & 0\% (0 lá)\\
 T1/LR & 10 / A & 4 & 3 & 25\% (1 lá)\\
@@ -168,10 +199,10 @@ Giá trị / action LR & 13 / A & $-13$ / B\\
 Giá trị / action RL & 13 / A & $-13$ / B\\
 So sánh số lá Minimax và Alpha--Beta & Minimax: 16; Alpha--Beta: 9 (LR), 16 (RL) & Minimax: 8; Alpha--Beta: 8 (LR), 6 (RL)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
-Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem bài tính tay N2 trong \texttt{TinhTay.pdf}.\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
+Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem \texttt{TinhTay.pdf}, trang 12--14 (N2).\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
 Đo thời gian (tùy chọn): Không thực hiện.\par\medskip
 \pagehead{05. KIỂM THỬ VÀ PHÁT HIỆN SAI LẦM}
-Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \code{python3 -m unittest -v test_nhom}; ngày chạy: 23/10/2026.\par Tổng test: 9; đạt: 9; thất bại/lỗi: 0. Kết quả này từ lần chạy trực tiếp; log nộp bài cần tạo bằng \code{python3 chay_kiem_thu.py}.\par\medskip
+Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \texttt{python3 -m unittest -v test\_nhom}; ngày chạy: 23/10/2026.\par Tổng test: 9; đạt: 9; thất bại/lỗi: 0.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{p{9mm}Xp{48mm}p{21mm}p{18mm}}\toprule
 \textbf{STT} & \textbf{Test / dữ liệu} & \textbf{Kỳ vọng và cách suy ra} & \textbf{Kết quả} & \textbf{Người}\\\midrule
 1 & \code{test_01_am_va_khong_sua_input}; 8 lá âm & $A=-3$, $B=-4$, $R=-3$, chọn A ở cả Minimax và Alpha--Beta; mảng lá đầu vào giữ nguyên. & PASS & Hiếu\\
@@ -193,21 +224,32 @@ Tệp test\_nhom.py; log output/ket\_qua\_test.txt. Lệnh: \code{python3 -m uni
 \end{itemize}
 \textit{Ghi chú:} Các bước tính toán chi tiết được trình bày đầy đủ trong docstring của từng test.\par\smallskip
 \textbf{Test T1 có kiểm cả value lẫn action không?} Có. Test 3 dùng \texttt{assertEqual} cho cả cặp \texttt{(value, action)} với kỳ vọng \texttt{(10, 'A')} ở hai thuật toán; kỳ vọng được suy ra từ $A=10$, $B=2$, không lấy kết quả của thuật toán này làm đáp án cho thuật toán kia.\par\medskip
+\clearpage
 \head{8. Hai lỗi nhóm đã phân tích}
+Mỗi lỗi được thử riêng trên bản sao của hàm \texttt{solve}, dùng lại test của nhóm; các số dòng dưới đây tham chiếu tới \texttt{search.py}.\par\smallskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Mục} & \textbf{Lỗi 1} & \textbf{Lỗi 2}\\\midrule
-Tệp / dòng / thay đổi gây lỗi & [Điền] & [Điền]\\
-Dự đoán trước khi chạy & [Điền] & [Điền]\\
-Dữ liệu / test phát hiện & [Điền] & [Điền]\\
-Kết quả thực tế / cách sửa & [Điền] & [Điền]\\
+Tệp / dòng / thay đổi gây lỗi & \texttt{search.py}, dòng 39: tại MAX, thay \texttt{-math.inf} bằng 0; MIN vẫn khởi tạo bằng \texttt{math.inf}. & \texttt{search.py}, dòng 44: tại MAX, đổi $\mathit{score}>\mathit{best}$ thành $\mathit{score}\ge\mathit{best}$; MIN vẫn dùng $<$.\\
+Dự đoán trước khi chạy & Với cây toàn điểm âm, MAX giữ best bằng 0 và không chọn được action hợp lệ, gây sai kết quả hoặc lỗi khi dựng đường chơi. & Trên T1/LR, gốc coi cận trên 10 từ B là hòa với giá trị 10 của A rồi chọn B; khi chơi thật, MIN chọn lá có utility 2.\\
+Dữ liệu / test phát hiện & \texttt{test\_nhom.py}, test 1: lá $[-3,-7,-1,-5,\allowbreak -9,-2,-6,-4]$; kỳ vọng $(\mathit{value},\mathit{action})=(-3,A)$. & \texttt{test\_nhom.py}, test 3: T1 có lá $[10,12,10,2]$, LR; kỳ vọng $(\mathit{value},\mathit{action})=(10,A)$.\\
+Kết quả thực tế / cách sửa & Test 1 báo \texttt{ERROR: StopIteration} khi Minimax dựng \texttt{principal\_variation}, do action tại gốc là \texttt{None}. Cách sửa: khôi phục khởi tạo MAX bằng \texttt{-math.inf}. & Test 3 báo \texttt{FAIL} ở Alpha--Beta: trả $(10,B)$ thay vì $(10,A)$. Cách sửa: khôi phục so sánh nghiêm $\mathit{score}>\mathit{best}$ tại MAX.\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
-Các trường hợp chưa kiểm hoặc lỗi còn tồn tại: [Điền trung thực].\par\medskip
+Các trường hợp chưa kiểm hoặc lỗi còn tồn tại: Hai thử nghiệm trên chưa khảo sát lỗi reset cửa sổ ở từng con của gốc. Chưa phát hiện lỗi trong bản mã chính qua 9 test nhóm hiện có.\par\medskip
 \pagehead{06. NHẬN XÉT, TÁI TẠO VÀ BẢO VỆ}
 \head{9. Ba kết luận có minh chứng}
-Kết luận 1 — LR/RL và số lá: [Điền 60–90 từ, dẫn cây/cấu hình/số liệu].\par\medskip
-Kết luận 2 — tham số hoặc đổi thang utility: [Điền 60–90 từ; giải thích, không chỉ chép bảng].\par\medskip
-Kết luận 3 — kiểm thử và một điều hiểu rõ hơn: [Điền 60–90 từ].\par\medskip
-Hai giới hạn của thực nghiệm: [Điền].\par Một cải tiến có thể khảo sát tiếp trong Minimax/Alpha–Beta: [Điền, không bắt buộc cài].\par\medskip
+\textbf{Kết luận 1 — LR/RL và số lá.}
+Thứ tự duyệt ảnh hưởng rõ đến hiệu quả cắt tỉa của Alpha--Beta. Trên T0, LR đọc 10/16 lá, tiết kiệm 37,5\%, còn RL đọc đủ 16 lá. Ngược lại, trên N2, RL đọc 6/8 lá, còn LR đọc đủ 8 lá. Không có thứ tự nào luôn tốt hơn: xét nhánh có lợi sớm giúp thiết lập cận để cắt các nhánh sau. Trong những cấu hình này, đổi thứ tự vẫn giữ nguyên value và action tại gốc.\par\medskip
+\textbf{Kết luận 2 — Đổi thang utility.}
+Phép đổi utility $u\mapsto2u-7$ trên T0 làm giá trị gốc tăng từ 10 thành 13, trong khi action vẫn là A. Alpha--Beta LR tiếp tục đọc 10 lá và có 3 lần cắt, giống cấu hình ban đầu. Phép biến đổi có hệ số dương bảo toàn thứ tự và quan hệ bằng nhau giữa các giá trị; các phép chọn min/max và so sánh với cận vì thế giữ nguyên quyết định khi toàn bộ utility được biến đổi đồng nhất.\par\medskip
+\textbf{Kết luận 3 — Kiểm thử và điều hiểu rõ hơn.}
+Log ghi nhận cả 9 test nhóm đều đạt. Qua T1, nhóm hiểu rằng value đúng chưa đủ để xác nhận action đúng. Nhánh B trả 10 với cờ \texttt{UPPER} nhưng giá trị thật là 2. Nếu MAX cập nhật action bằng phép so sánh không nghiêm, thuật toán có thể trả $(10,B)$ thay vì $(10,A)$. Vì vậy, test cần kiểm tra cả value, action và ý nghĩa cận; khi chọn action phải giữ phép so sánh nghiêm.\par\medskip
+\textbf{Hai giới hạn của thực nghiệm.}
+\begin{enumerate}
+\item Các cây đều là cây nhị phân nhỏ, tối đa 16 lá; kết quả chưa phản ánh đầy đủ hiệu quả trên cây sâu hoặc có hệ số phân nhánh lớn.
+\item Nhóm chưa thực hiện đo thời gian lặp và chưa khảo sát nhiều seed cho N1/N2; mức tiết kiệm lá quan sát được chưa đủ để khái quát mức tăng tốc.
+\end{enumerate}
+\textbf{Một cải tiến có thể khảo sát tiếp.}
+Bổ sung sắp xếp thứ tự xét con theo ước lượng: MAX ưu tiên nhánh có giá trị dự đoán cao, MIN ưu tiên nhánh thấp. So sánh số lá đã đọc với LR/RL cố định, đồng thời kiểm tra giá trị gốc và tính tối ưu của action; khi có nhiều hành động đồng hạng cần nêu rõ quy tắc xử lý hòa.\par\medskip
 \head{10. Kiểm tra trước khi nộp}
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XX}\toprule
 \textbf{Hạng mục} & \textbf{Kết quả / người kiểm}\\\midrule

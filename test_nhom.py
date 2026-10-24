@@ -173,4 +173,8 @@ class TestNhom10(unittest.TestCase):
             self.assertEqual(r['visited'], r['expanded'] + r['leaves'])
 
 if __name__ == "__main__":
-    unittest.main()
+    import unittest
+    import test_nhom
+
+    test_nhom.solve = solve
+    unittest.main(module=test_nhom)

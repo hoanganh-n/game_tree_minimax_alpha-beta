@@ -1,0 +1,17 @@
+# ĐÓNG GÓP NHÓM 10 — ĐÚNG 4 THÀNH VIÊN
+Thông tin thành viên theo `README_NOP.md`; nội dung phụ trách theo `phan_cong.md` và các kiểm thử hiện có trong `test_nhom.py`.
+
+| Thành viên / MSSV | Mảng chủ trì | Hai kiểm thử | Kiểm tra chéo | Tệp/commit/minh chứng |
+|---|---|---|---|---|
+| 1. Hoàng Trung Hiếu / 25022849 | Mô hình cây, Minimax; tính tay B1 trên T0; nội dung báo cáo về bài toán và Minimax. | **Test 1:** `test_01_am_va_khong_sua_input` — cây toàn điểm âm, bảo toàn dữ liệu đầu vào.<br>**Test 2:** `test_02_utility_zero_va_duong_di_toi_uu` — utility 0 và đường đi tối ưu của Minimax. | Đọc, giải thích và đối chiếu vết Alpha–Beta trên T0 với kết quả tính tay. | `tinh_tay/Tính-Tay-B1.pdf`; `test_nhom.py` (test 1–2); `output/trace_T0.json` dùng đối chiếu. |
+| 2. Trần Nguyên Hiển Minh / 25022950 | Alpha–Beta, cắt tỉa và cờ cận; tính tay B2 và phân tích T1 ở B4; nội dung báo cáo về quy tắc thuật toán và hòa giả. | **Test 3:** `test_03_T1_false_tie` — kiểm tra cả value và action trên T1 để bắt lỗi hòa giả.<br>**Test 4:** `test_04_T0_pruning_bounds_and_counts` — vị trí cắt, cờ UPPER và số đếm trên T0. | Đối chiếu bảng Minimax của Hiếu với trường `returns`; kiểm tra value/action và phân biệt giá trị chính xác với cận. | `tinh_tay/tinh_tay_B2_B4.pdf`; `test_nhom.py` (test 3–4); `output/bat_buoc.json`, `output/trace_T0.json` dùng đối chiếu. |
+| 3. Lê Bảo Ngân / 25022958 | Dữ liệu N1/N2, khảo sát tham số T(t) và biến đổi affine; tính tay B3 và N2 gốc MIN; phối hợp với Hoàng Anh về dữ liệu seed 2579. | **Test 5:** `test_05_t0_parameter` — value/action và số lá Alpha–Beta với t = 10, 11, 14.<br>**Test 6:** `test_06_n2_root_min` — N2 có gốc MIN, cả hai thuật toán và LR/RL trả value = -13, action = B. | Tái tạo kết quả của Hiếu và Minh; đối chiếu value/action, các mốc tham số và kết quả dữ liệu riêng trong JSON. | `tinh_tay/TinhTayB3.pdf`; `tinh_tay/TinhTayN2.pdf`; `du_lieu_nhom.json`; `test_nhom.py` (test 5–7); `output/t11.json` dùng đối chiếu. |
+| 4. Nguyễn Hoàng Anh / 25022772 — Nhóm trưởng | Thực nghiệm 24 cấu hình bắt buộc và 8 cấu hình riêng; tạo dữ liệu seed 2579, xuất trace; tích hợp kiểm thử, tính tay, báo cáo và hồ sơ nộp; phụ trách slide và đóng gói. | **Test 8:** `test_08_hoa_that_theo_LR_RL` — hòa thật: value = 2, LR chọn A, RL chọn B.<br>**Test 9:** `test_09_trace_bat_tat_va_tich_hop_json` — nạp N1 từ JSON, bật/tắt trace giữ nguyên kết quả và số đếm được kiểm tra. | Kiểm tra định dạng JSON/CSV, số cấu hình 24+8, bất biến visited = expanded + leaves, bộ test và các lệnh tái chạy; phối hợp kiểm tra ZIP trên máy khác. | `output/bat_buoc.json/.csv`; `output/tu_tao.json/.csv`; `output/trace_T0.json/.csv`; `output/ket_qua_test.txt`; `test_nhom.py` (test 8–9); `TinhTay.pdf`; `MauBaoCao/BaoCao.tex`, `BaoCao.pdf`; `README_NOP.md`, `DongGop.md`. |
+
+Ngân phụ trách thêm **Test 7 — `test_07_invalid_leaf_data`**: từ chối số lá không phải lũy thừa 2, utility chuỗi và bool. Tổng cộng **9 test**, phân bổ **2–2–3–2**, bảo đảm mỗi người ít nhất 2 test. Log hiện có tại `output/ket_qua_test.txt` ghi 9 test PASS, `EXIT_CODE=0`.
+
+Bảng ghi phạm vi phụ trách và tệp minh chứng hiện có; phần slide, đóng gói và tái chạy trên máy khác cần xác nhận hoàn thành thực tế. Chưa có `ThuyetTrinh.pptx` và chưa có xác nhận tái chạy trên máy khác trong `README_NOP.md`.
+
+Mốc ngày 5: [Điền công việc đã xong, chưa xong, tệp minh chứng].
+Mốc ngày 10: [Điền kết quả tái chạy, lỗi còn tồn tại].
+Cả bốn người xác nhận và sẵn sàng bảo vệ nội dung bài: [Điền].

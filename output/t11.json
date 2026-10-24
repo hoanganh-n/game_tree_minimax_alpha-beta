@@ -1,0 +1,721 @@
+[
+  {
+    "algorithm": "alphabeta",
+    "order": "LR",
+    "value": 11,
+    "action": "A",
+    "visited": 21,
+    "expanded": 12,
+    "leaves": 9,
+    "cutoffs": 4,
+    "pruned_branches": 4,
+    "max_depth": 4,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L05",
+      "L06",
+      "L07",
+      "L08",
+      "L09",
+      "L11"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "A1",
+      "A11",
+      "L01",
+      "L02",
+      "A12",
+      "L03",
+      "A2",
+      "A21",
+      "L05",
+      "L06",
+      "A22",
+      "L07",
+      "L08",
+      "B",
+      "B1",
+      "B11",
+      "L09",
+      "B12",
+      "L11"
+    ],
+    "pruned_roots": [
+      "L04",
+      "L10",
+      "L12",
+      "B2"
+    ],
+    "unvisited_nodes": [
+      "L04",
+      "L10",
+      "L12",
+      "B2",
+      "B21",
+      "L13",
+      "L14",
+      "B22",
+      "L15",
+      "L16"
+    ],
+    "returns": {
+      "L01": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A11": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "L01"
+      },
+      "L03": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A12": {
+        "value": 11,
+        "bound": "UPPER",
+        "action": "L03"
+      },
+      "A1": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A11"
+      },
+      "L05": {
+        "value": 8,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L06": {
+        "value": 15,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A21": {
+        "value": 8,
+        "bound": "EXACT",
+        "action": "L05"
+      },
+      "L07": {
+        "value": 14,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L08": {
+        "value": 13,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A22": {
+        "value": 13,
+        "bound": "LOWER",
+        "action": "L08"
+      },
+      "A2": {
+        "value": 13,
+        "bound": "LOWER",
+        "action": "A22"
+      },
+      "A": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A1"
+      },
+      "L09": {
+        "value": 4,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B11": {
+        "value": 4,
+        "bound": "UPPER",
+        "action": "L09"
+      },
+      "L11": {
+        "value": 3,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B12": {
+        "value": 3,
+        "bound": "UPPER",
+        "action": "L11"
+      },
+      "B1": {
+        "value": 4,
+        "bound": "UPPER",
+        "action": "B11"
+      },
+      "B": {
+        "value": 4,
+        "bound": "UPPER",
+        "action": "B1"
+      },
+      "R": {
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": null,
+    "trace": [
+      {
+        "event": "ENTER",
+        "node": "R",
+        "depth": 0,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A",
+        "depth": 1,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A1",
+        "depth": 2,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A11",
+        "depth": 3,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L01",
+        "depth": 4,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L01",
+        "value": 11
+      },
+      {
+        "event": "UPDATE",
+        "node": "A11",
+        "child": "L01",
+        "score": 11,
+        "best": 11,
+        "action": "L01",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L02",
+        "depth": 4,
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "LEAF",
+        "node": "L02",
+        "value": 12
+      },
+      {
+        "event": "UPDATE",
+        "node": "A11",
+        "child": "L02",
+        "score": 12,
+        "best": 11,
+        "action": "L01",
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "RETURN",
+        "node": "A11",
+        "value": 11,
+        "bound": "EXACT",
+        "action": "L01",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "A1",
+        "child": "A11",
+        "score": 11,
+        "best": 11,
+        "action": "A11",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A12",
+        "depth": 3,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L03",
+        "depth": 4,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L03",
+        "value": 11
+      },
+      {
+        "event": "UPDATE",
+        "node": "A12",
+        "child": "L03",
+        "score": 11,
+        "best": 11,
+        "action": "L03",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "PRUNE",
+        "node": "A12",
+        "alpha": 11,
+        "beta": "+inf",
+        "value": 11,
+        "skipped": [
+          "L04"
+        ]
+      },
+      {
+        "event": "RETURN",
+        "node": "A12",
+        "value": 11,
+        "bound": "UPPER",
+        "action": "L03",
+        "alpha_in": 11,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "A1",
+        "child": "A12",
+        "score": 11,
+        "best": 11,
+        "action": "A11",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "RETURN",
+        "node": "A1",
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A11",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "A",
+        "child": "A1",
+        "score": 11,
+        "best": 11,
+        "action": "A1",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A2",
+        "depth": 2,
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "A21",
+        "depth": 3,
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "L05",
+        "depth": 4,
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "LEAF",
+        "node": "L05",
+        "value": 8
+      },
+      {
+        "event": "UPDATE",
+        "node": "A21",
+        "child": "L05",
+        "score": 8,
+        "best": 8,
+        "action": "L05",
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "L06",
+        "depth": 4,
+        "alpha": "-inf",
+        "beta": 8
+      },
+      {
+        "event": "LEAF",
+        "node": "L06",
+        "value": 15
+      },
+      {
+        "event": "UPDATE",
+        "node": "A21",
+        "child": "L06",
+        "score": 15,
+        "best": 8,
+        "action": "L05",
+        "alpha": "-inf",
+        "beta": 8
+      },
+      {
+        "event": "RETURN",
+        "node": "A21",
+        "value": 8,
+        "bound": "EXACT",
+        "action": "L05",
+        "alpha_in": "-inf",
+        "beta_in": 11
+      },
+      {
+        "event": "UPDATE",
+        "node": "A2",
+        "child": "A21",
+        "score": 8,
+        "best": 8,
+        "action": "A21",
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "A22",
+        "depth": 3,
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "L07",
+        "depth": 4,
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "LEAF",
+        "node": "L07",
+        "value": 14
+      },
+      {
+        "event": "UPDATE",
+        "node": "A22",
+        "child": "L07",
+        "score": 14,
+        "best": 14,
+        "action": "L07",
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "ENTER",
+        "node": "L08",
+        "depth": 4,
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "LEAF",
+        "node": "L08",
+        "value": 13
+      },
+      {
+        "event": "UPDATE",
+        "node": "A22",
+        "child": "L08",
+        "score": 13,
+        "best": 13,
+        "action": "L08",
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "RETURN",
+        "node": "A22",
+        "value": 13,
+        "bound": "LOWER",
+        "action": "L08",
+        "alpha_in": 8,
+        "beta_in": 11
+      },
+      {
+        "event": "UPDATE",
+        "node": "A2",
+        "child": "A22",
+        "score": 13,
+        "best": 13,
+        "action": "A22",
+        "alpha": 8,
+        "beta": 11
+      },
+      {
+        "event": "RETURN",
+        "node": "A2",
+        "value": 13,
+        "bound": "LOWER",
+        "action": "A22",
+        "alpha_in": "-inf",
+        "beta_in": 11
+      },
+      {
+        "event": "UPDATE",
+        "node": "A",
+        "child": "A2",
+        "score": 13,
+        "best": 11,
+        "action": "A1",
+        "alpha": "-inf",
+        "beta": 11
+      },
+      {
+        "event": "RETURN",
+        "node": "A",
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A1",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "R",
+        "child": "A",
+        "score": 11,
+        "best": 11,
+        "action": "A",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "B",
+        "depth": 1,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "B1",
+        "depth": 2,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "B11",
+        "depth": 3,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L09",
+        "depth": 4,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L09",
+        "value": 4
+      },
+      {
+        "event": "UPDATE",
+        "node": "B11",
+        "child": "L09",
+        "score": 4,
+        "best": 4,
+        "action": "L09",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "PRUNE",
+        "node": "B11",
+        "alpha": 11,
+        "beta": "+inf",
+        "value": 4,
+        "skipped": [
+          "L10"
+        ]
+      },
+      {
+        "event": "RETURN",
+        "node": "B11",
+        "value": 4,
+        "bound": "UPPER",
+        "action": "L09",
+        "alpha_in": 11,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "B1",
+        "child": "B11",
+        "score": 4,
+        "best": 4,
+        "action": "B11",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "B12",
+        "depth": 3,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L11",
+        "depth": 4,
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L11",
+        "value": 3
+      },
+      {
+        "event": "UPDATE",
+        "node": "B12",
+        "child": "L11",
+        "score": 3,
+        "best": 3,
+        "action": "L11",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "PRUNE",
+        "node": "B12",
+        "alpha": 11,
+        "beta": "+inf",
+        "value": 3,
+        "skipped": [
+          "L12"
+        ]
+      },
+      {
+        "event": "RETURN",
+        "node": "B12",
+        "value": 3,
+        "bound": "UPPER",
+        "action": "L11",
+        "alpha_in": 11,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "B1",
+        "child": "B12",
+        "score": 3,
+        "best": 4,
+        "action": "B11",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "RETURN",
+        "node": "B1",
+        "value": 4,
+        "bound": "UPPER",
+        "action": "B11",
+        "alpha_in": 11,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "B",
+        "child": "B1",
+        "score": 4,
+        "best": 4,
+        "action": "B1",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "PRUNE",
+        "node": "B",
+        "alpha": 11,
+        "beta": "+inf",
+        "value": 4,
+        "skipped": [
+          "B2"
+        ]
+      },
+      {
+        "event": "RETURN",
+        "node": "B",
+        "value": 4,
+        "bound": "UPPER",
+        "action": "B1",
+        "alpha_in": 11,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "R",
+        "child": "B",
+        "score": 4,
+        "best": 11,
+        "action": "A",
+        "alpha": 11,
+        "beta": "+inf"
+      },
+      {
+        "event": "RETURN",
+        "node": "R",
+        "value": 11,
+        "bound": "EXACT",
+        "action": "A",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      }
+    ],
+    "elapsed_ms": 0.08145499850797933,
+    "experiment": "single",
+    "case": "T0_t11",
+    "parameter": 11,
+    "repeat": 1
+  }
+]

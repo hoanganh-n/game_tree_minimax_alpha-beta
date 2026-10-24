@@ -1,0 +1,2 @@
+﻿experiment,case,parameter,algorithm,order,value,action,visited,expanded,leaves,cutoffs,pruned_branches,max_depth,repeat,elapsed_ms
+single,T0,,alphabeta,LR,10,A,22,12,10,3,3,4,1,0.08757599971431773

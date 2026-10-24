@@ -1,9 +1,9 @@
 ﻿experiment,case,parameter,algorithm,order,value,action,visited,expanded,leaves,cutoffs,pruned_branches,max_depth,repeat,elapsed_ms
-custom,N1,,minimax,LR,13,A,31,15,16,0,0,4,1,0.0446740014012903
-custom,N1,,alphabeta,LR,13,A,21,12,9,4,4,4,1,0.031769999623065814
-custom,N1,,minimax,RL,13,A,31,15,16,0,0,4,1,0.029776998417219147
-custom,N1,,alphabeta,RL,13,A,31,15,16,0,0,4,1,0.03117900268989615
-custom,N2,,minimax,LR,-13,B,15,7,8,0,0,3,1,0.013335000403458253
-custom,N2,,alphabeta,LR,-13,B,15,7,8,0,0,3,1,0.016951998986769468
-custom,N2,,minimax,RL,-13,B,15,7,8,0,0,3,1,0.013635999493999407
-custom,N2,,alphabeta,RL,-13,B,12,6,6,1,1,3,1,0.017022000974975526
+custom,N1,,minimax,LR,13,A,31,15,16,0,0,4,1,0.04492499829211738
+custom,N1,,alphabeta,LR,13,A,21,12,9,4,4,4,1,0.04005600021628197
+custom,N1,,minimax,RL,13,A,31,15,16,0,0,4,1,0.03183999979228247
+custom,N1,,alphabeta,RL,13,A,31,15,16,0,0,4,1,0.03479599945421796
+custom,N2,,minimax,LR,-13,B,15,7,8,0,0,3,1,0.02836299972841516
+custom,N2,,alphabeta,LR,-13,B,15,7,8,0,0,3,1,0.10341600136598572
+custom,N2,,minimax,RL,-13,B,15,7,8,0,0,3,1,0.023274000341189094
+custom,N2,,alphabeta,RL,-13,B,12,6,6,1,1,3,1,0.015480000001844019
