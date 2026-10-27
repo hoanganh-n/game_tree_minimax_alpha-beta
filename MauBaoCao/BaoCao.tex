@@ -47,8 +47,7 @@
 {\Large\sffamily\bfseries\color{Ink}01. THÔNG TIN NHÓM VÀ MÔ HÌNH}\par\medskip
 BÁO CÁO GIỮA KỲ • NHÓM 10 • MINIMAX VÀ ALPHA–BETA\par\medskip
 Học phần: Biểu diễn tri thức và tìm kiếm nâng cao\par Giảng viên: TS. Nguyễn Bích Vân — IAI–UET–VNU\par\medskip
-Nhóm / lớp: Nhóm 10 - UET.AI2014\_1 Ngày giao 16/10/2026 / ngày nộp: [Điền]\par Python: 3.14.4 / hệ điều hành: Linux (WSL2, x86\_64) / máy dùng chung: Máy cá nhân của nhóm trưởng.\par\medskip
-Hướng dẫn: thay [Điền] bằng bài làm và kết quả thật; thêm dòng hoặc giãn ô khi cần. Mẫu trống 6 trang; báo cáo hoàn thiện 6–8 trang nội dung chính, không tính bài tính tay. Chọn Word hoặc LaTeX, không phải điền cả hai.\par\medskip
+Nhóm / lớp: Nhóm 10 - UET.AI2014\_1 Ngày giao 16/10/2026 / ngày nộp: 27/10/2026\par Python: 3.14.4 / hệ điều hành: Linux (WSL2, x86\_64) / máy dùng chung: Máy cá nhân của nhóm trưởng.\par\medskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXXX}\toprule
 \textbf{Thành viên / MSSV} & \textbf{Chủ trì} & \textbf{Test phụ trách} & \textbf{Kiểm tra chéo}\\\midrule
 1. Hoàng Trung Hiếu / 25022849 & Mô hình cây, Minimax; bài B1 & Test 1: điểm âm, bảo toàn input; test 2: utility 0, đường đi tối ưu & Đọc và đối chiếu vết Alpha--Beta trên T0\\
@@ -137,7 +136,7 @@ Với hệ số phân nhánh $b$ và độ sâu $d$, Minimax có thời gian x�
 Về bộ nhớ, tại mỗi thời điểm, các lời gọi đệ quy đang hoạt động nằm trên một đường từ gốc xuống nút hiện tại, nên stack đệ quy tốn $O(d)$. Cây được dựng sẵn trong bộ nhớ tốn $O(N)$, với $N$ là tổng số nút.\par
 Trong hàm \texttt{solve()} của tệp \texttt{search.py}, chương trình còn lưu các nút đã thăm (\texttt{visited\_nodes}), thứ tự đọc lá (\texttt{leaf\_order}) và kết quả trả về tại từng nút (\texttt{returns}). Chương trình cũng tạo danh sách toàn bộ nút để xác định các nút không được thăm (\texttt{unvisited\_nodes}). Các cấu trúc này cần bộ nhớ phụ $O(N)$ trong trường hợp xấu nhất, kể cả khi tắt trace. Khi bật trace, chương trình lưu thêm $O(N)$ sự kiện trên cây nhị phân của bài, nên tổng bộ nhớ phụ vẫn là $O(N)$.\par\medskip
 \pagehead{03. ĐỐI CHIẾU TÍNH TAY VÀ MÃ}
-PDF bài tính tay: \texttt{TinhTay.pdf}, trang 1--14. Ngày ghi dự đoán trước khi chạy: 22/10/2026.\par\medskip
+PDF bài tính tay: \texttt{TinhTay.pdf}, trang 1--14. Ngày ghi dự đoán trước khi chạy: 23/10/2026.\par\medskip
 \head{4. T0: Minimax và Alpha–Beta}
 Minh chứng tính tay: \texttt{TinhTay.pdf}, trang 1--3 (B1) và trang 4--6 (B2). Đối chiếu với \texttt{output/bat\_buoc.json}, các bản ghi có \texttt{case=T0}, \texttt{order=LR} cho hai thuật toán.\par\smallskip
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
@@ -190,6 +189,7 @@ T2/RL & -4 / A & 8 & 7 & 12.5\% (1 lá)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
 Một phép tính tỷ lệ tiết kiệm: Trên T0/LR, Minimax duyệt 16 lá, Alpha--Beta duyệt 10 lá, tỷ lệ tiết kiệm lá là $(16-10)/16 = 37.5\%$. Một trường hợp không tiết kiệm lá: T0/RL (hoặc T1/RL, T2/LR) duyệt trúng nhánh xấu trước nên không cắt được lá nào (tiết kiệm 0\%).\par\medskip
 Năm mốc tham số và hai dòng affine nằm ở CSV các dòng từ 14 đến 25. Dự đoán / kết quả của u $\mapsto$ 2u-7: Giá trị gốc $V(R) = 2 \times 10 - 7 = 13$, hành động giữ nguyên là A, số lá và vị trí cắt tỉa không đổi (Alpha--Beta đọc 10 lá, 3 lần cắt); khớp dự đoán lý thuyết.\par\medskip
+Với các cấu hình tham số theo LR, Minimax luôn đọc 16 lá. Alpha--Beta đọc 10 lá khi $t=8,10$, tương ứng tiết kiệm $37{,}5\%$; đọc 9 lá khi $t=11,12,14$, tương ứng tiết kiệm $43{,}75\%$. Với phép đổi utility $u'=2u-7$, tỷ lệ tiết kiệm vẫn là $37{,}5\%$, giống T0/LR do phép biến đổi bảo toàn thứ tự các giá trị.\par\medskip
 \head{7. Hai cây riêng N1/N2}
 \begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XXX}\toprule
 \textbf{Nội dung} & \textbf{N1 (16 lá, MAX)} & \textbf{N2 (8 lá, MIN)}\\\midrule
@@ -199,6 +199,7 @@ Giá trị / action LR & 13 / A & $-13$ / B\\
 Giá trị / action RL & 13 / A & $-13$ / B\\
 So sánh số lá Minimax và Alpha--Beta & Minimax: 16; Alpha--Beta: 9 (LR), 16 (RL) & Minimax: 8; Alpha--Beta: 8 (LR), 6 (RL)\\
 \bottomrule\end{tabularx}\endgroup\par\medskip
+Trên N1, Alpha--Beta tiết kiệm $43{,}75\%$ số lá khi duyệt LR và $0\%$ khi duyệt RL. Trên N2, tỷ lệ tương ứng là $0\%$ với LR và $25\%$ với RL, cho thấy thứ tự tốt hơn phụ thuộc vào dữ liệu.\par\medskip
 Kỳ vọng tính tay độc lập của N2: $V(R)=\min(\max(-15,11),\max(-19,-13))=-13$, hành động B; xem \texttt{TinhTay.pdf}, trang 12--14 (N2).\par JSON/CSV riêng: output/tu\_tao.* có 8 cấu hình; xác nhận: đủ 8 cấu hình, N2 trả $-13$ / B ở cả LR/RL.\par\medskip
 Đo thời gian (tùy chọn): Không thực hiện.\par\medskip
 \pagehead{05. KIỂM THỬ VÀ PHÁT HIỆN SAI LẦM}
@@ -237,28 +238,30 @@ Kết quả thực tế / cách sửa & Test 1 báo \texttt{ERROR: StopIteration
 Các trường hợp chưa kiểm hoặc lỗi còn tồn tại: Hai thử nghiệm trên chưa khảo sát lỗi reset cửa sổ ở từng con của gốc. Chưa phát hiện lỗi trong bản mã chính qua 9 test nhóm hiện có.\par\medskip
 \pagehead{06. NHẬN XÉT, TÁI TẠO VÀ BẢO VỆ}
 \head{9. Ba kết luận có minh chứng}
-\textbf{Kết luận 1 — LR/RL và số lá.}
-Thứ tự duyệt ảnh hưởng rõ đến hiệu quả cắt tỉa của Alpha--Beta. Trên T0, LR đọc 10/16 lá, tiết kiệm 37,5\%, còn RL đọc đủ 16 lá. Ngược lại, trên N2, RL đọc 6/8 lá, còn LR đọc đủ 8 lá. Không có thứ tự nào luôn tốt hơn: xét nhánh có lợi sớm giúp thiết lập cận để cắt các nhánh sau. Trong những cấu hình này, đổi thứ tự vẫn giữ nguyên value và action tại gốc.\par\medskip
-\textbf{Kết luận 2 — Đổi thang utility.}
-Phép đổi utility $u\mapsto2u-7$ trên T0 làm giá trị gốc tăng từ 10 thành 13, trong khi action vẫn là A. Alpha--Beta LR tiếp tục đọc 10 lá và có 3 lần cắt, giống cấu hình ban đầu. Phép biến đổi có hệ số dương bảo toàn thứ tự và quan hệ bằng nhau giữa các giá trị; các phép chọn min/max và so sánh với cận vì thế giữ nguyên quyết định khi toàn bộ utility được biến đổi đồng nhất.\par\medskip
-\textbf{Kết luận 3 — Kiểm thử và điều hiểu rõ hơn.}
-Log ghi nhận cả 9 test nhóm đều đạt. Qua T1, nhóm hiểu rằng value đúng chưa đủ để xác nhận action đúng. Nhánh B trả 10 với cờ \texttt{UPPER} nhưng giá trị thật là 2. Nếu MAX cập nhật action bằng phép so sánh không nghiêm, thuật toán có thể trả $(10,B)$ thay vì $(10,A)$. Vì vậy, test cần kiểm tra cả value, action và ý nghĩa cận; khi chọn action phải giữ phép so sánh nghiêm.\par\medskip
+\textbf{Kết luận 1: LR/RL và số lá.}
+Thứ tự duyệt ảnh hưởng rõ đến hiệu quả cắt tỉa của Alpha--Beta. Trên T0, LR đọc 10/16 lá, tiết kiệm 37,5\%, còn RL đọc đủ 16 lá. Ngược lại, trên N2, RL đọc 6/8 lá, còn LR đọc đủ 8 lá. Không có thứ tự nào luôn tốt hơn: xét nhánh có lợi sớm giúp thiết lập cận để cắt các nhánh sau. Trong những cấu hình này, đổi thứ tự vẫn giữ nguyên value và action tại gốc.\par\smallskip
+\textbf{Kết luận 2: Đổi thang utility.}
+Phép đổi utility $u\mapsto2u-7$ trên T0 làm giá trị gốc tăng từ 10 thành 13, trong khi action vẫn là A. Alpha--Beta LR tiếp tục đọc 10 lá và có 3 lần cắt, giống cấu hình ban đầu. Phép biến đổi có hệ số dương bảo toàn thứ tự và quan hệ bằng nhau giữa các giá trị; các phép chọn min/max và so sánh với cận vì thế giữ nguyên quyết định khi toàn bộ utility được biến đổi đồng nhất.\par\smallskip
+\textbf{Kết luận 3: Kiểm thử và điều hiểu rõ hơn.}
+Log ghi nhận cả 9 test nhóm đều đạt. Qua T1, nhóm hiểu rằng value đúng chưa đủ để xác nhận action đúng. Nhánh B trả 10 với cờ \texttt{UPPER} nhưng giá trị thật là 2. Nếu MAX cập nhật action bằng phép so sánh không nghiêm, thuật toán có thể trả $(10,B)$ thay vì $(10,A)$. Vì vậy, test cần kiểm tra cả value, action và ý nghĩa cận; khi chọn action phải giữ phép so sánh nghiêm.\par\smallskip
 \textbf{Hai giới hạn của thực nghiệm.}
-\begin{enumerate}
+\begin{enumerate}[topsep=1pt,itemsep=1pt,partopsep=0pt,parsep=0pt]
 \item Các cây đều là cây nhị phân nhỏ, tối đa 16 lá; kết quả chưa phản ánh đầy đủ hiệu quả trên cây sâu hoặc có hệ số phân nhánh lớn.
 \item Nhóm chưa thực hiện đo thời gian lặp và chưa khảo sát nhiều seed cho N1/N2; mức tiết kiệm lá quan sát được chưa đủ để khái quát mức tăng tốc.
 \end{enumerate}
 \textbf{Một cải tiến có thể khảo sát tiếp.}
-Bổ sung sắp xếp thứ tự xét con theo ước lượng: MAX ưu tiên nhánh có giá trị dự đoán cao, MIN ưu tiên nhánh thấp. So sánh số lá đã đọc với LR/RL cố định, đồng thời kiểm tra giá trị gốc và tính tối ưu của action; khi có nhiều hành động đồng hạng cần nêu rõ quy tắc xử lý hòa.\par\medskip
+Bổ sung sắp xếp thứ tự xét con theo ước lượng: MAX ưu tiên nhánh có giá trị dự đoán cao, MIN ưu tiên nhánh thấp. So sánh số lá đã đọc với LR/RL cố định, đồng thời kiểm tra giá trị gốc và tính tối ưu của action; khi có nhiều hành động đồng hạng cần nêu rõ quy tắc xử lý hòa.\par\smallskip
 \head{10. Kiểm tra trước khi nộp}
-\begingroup\footnotesize\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{XX}\toprule
+\begingroup\footnotesize\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{XX}\toprule
 \textbf{Hạng mục} & \textbf{Kết quả / người kiểm}\\\midrule
-Báo cáo, bài tay và 6–8 slide & [Điền]\\
-24+8 cấu hình / trace T0 & [Điền]\\
-9 test riêng, mỗi người ít nhất 2 / log thật & [Điền]\\
-README\_NOP, dữ liệu và đủ Python & [Điền]\\
-ZIP giải nén chạy lại trên máy khác & [Điền]\\
-Bốn người đã tập bảo vệ 15–20 phút & [Điền]\\
-\bottomrule\end{tabularx}\endgroup\par\medskip
-Tên ZIP: [Điền].\par Mốc ngày 5 / ngày 10 và tệp minh chứng: [Điền].\par Bốn thành viên xác nhận bài nộp và nội dung phụ trách: [Điền].\par\medskip
+Báo cáo, bài tay và 6–8 slide & Đạt: \code{BaoCao.pdf}, \code{TinhTay.pdf}, \code{ThuyetTrinh.pptx} Hoàng Anh, Hiếu kiểm.\\
+24+8 cấu hình / trace T0 & Đạt: 24 JSON/CSV bắt buộc, 8 JSON/CSV tự tạo, đủ vết trace T0, thỏa mãn $\mathit{visited} = \mathit{expanded} + \mathit{leaves}$ / Hoàng Anh, Bảo Ngân kiểm.\\
+9 test riêng, mỗi người ít nhất 2 / log thật & Đạt: 9/9 test PASS (2--2--3--2), 4 test tính tay độc lập; \code{EXIT_CODE=0} trong \code{output/ket_qua_test.txt} / Hiển Minh, Hoàng Anh kiểm.\\
+README\_NOP, dữ liệu và đủ Python & Đạt: \code{README_NOP.md}, \code{du_lieu_nhom.json} / Bảo Ngân, Hoàng Anh kiểm.\\
+ZIP giải nén chạy lại trên máy khác & Đạt: Hoàng Trung Hiếu giải nén và tái chạy độc lập thành công toàn bộ chuỗi lệnh trên máy khác (25/10/2026).\\
+Bốn người đã tập bảo vệ 15–20 phút & Đạt: cả 4 thành viên tập dượt 18 phút. Cả 4 người nắm vững cả Minimax và Alpha--Beta / Cả nhóm xác nhận.\\
+\bottomrule\end{tabularx}\endgroup\par\smallskip
+\textbf{Tên ZIP:} \code{Nhom10_CayTroChoi_GiuaKy.zip}.\par
+\textbf{Mốc ngày 5 / ngày 10 và tệp minh chứng:} Mốc ngày 5 (20/10/2026): hoàn thành phân công, tính tay B1 (\code{tinh_tay/}Tính-Tay-B1.pdf), khung kiểm thử (commit \code{095a0f5}, \code{5777bc7}). Mốc ngày 10 (25/10/2026): hoàn thiện 9 test, \code{TinhTay.pdf}, thực nghiệm 24+8 cấu hình, báo cáo, slide và nghiệm thu tái chạy độc lập (\code{output/ket_qua_test.txt}, \code{README_NOP.md}).\par
+\textbf{Bốn thành viên xác nhận bài nộp và nội dung phụ trách:} Cả 4 thành viên đã ký xác nhận nội dung phụ trách và sẵn sàng bảo vệ: 1.~Hoàng Trung Hiếu (Mô hình cây, Minimax, B1, Test 1--2, tái chạy); 2.~Trần Nguyên Hiển Minh (Alpha--Beta, B2, B4, Test 3--4); 3.~Lê Bảo Ngân (Dữ liệu N1/N2, tham số, B3, Test 5--7); 4.~Nguyễn Hoàng Anh (Thực nghiệm 24+8, tích hợp, báo cáo, slide, Test 8--9).\par
 \end{document}

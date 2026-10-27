@@ -1,0 +1,79 @@
+[
+  {
+    "algorithm": "minimax",
+    "order": "LR",
+    "value": 10,
+    "action": "A",
+    "visited": 7,
+    "expanded": 3,
+    "leaves": 4,
+    "cutoffs": 0,
+    "pruned_branches": 0,
+    "max_depth": 2,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03",
+      "L04"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "L01",
+      "L02",
+      "B",
+      "L03",
+      "L04"
+    ],
+    "pruned_roots": [],
+    "unvisited_nodes": [],
+    "returns": {
+      "L01": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": "L01"
+      },
+      "L03": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L04": {
+        "value": 2,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B": {
+        "value": 2,
+        "bound": "EXACT",
+        "action": "L04"
+      },
+      "R": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": [
+      "R",
+      "A",
+      "L01"
+    ],
+    "trace": [],
+    "elapsed_ms": 0.02654999980222783,
+    "experiment": "single",
+    "case": "T1",
+    "parameter": null,
+    "repeat": 1
+  }
+]

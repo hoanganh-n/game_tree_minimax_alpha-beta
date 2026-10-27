@@ -1,0 +1,217 @@
+[
+  {
+    "algorithm": "alphabeta",
+    "order": "LR",
+    "value": 10,
+    "action": "A",
+    "visited": 6,
+    "expanded": 3,
+    "leaves": 3,
+    "cutoffs": 1,
+    "pruned_branches": 1,
+    "max_depth": 2,
+    "leaf_order": [
+      "L01",
+      "L02",
+      "L03"
+    ],
+    "visited_nodes": [
+      "R",
+      "A",
+      "L01",
+      "L02",
+      "B",
+      "L03"
+    ],
+    "pruned_roots": [
+      "L04"
+    ],
+    "unvisited_nodes": [
+      "L04"
+    ],
+    "returns": {
+      "L01": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": null
+      },
+      "L02": {
+        "value": 12,
+        "bound": "EXACT",
+        "action": null
+      },
+      "A": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": "L01"
+      },
+      "L03": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": null
+      },
+      "B": {
+        "value": 10,
+        "bound": "UPPER",
+        "action": "L03"
+      },
+      "R": {
+        "value": 10,
+        "bound": "EXACT",
+        "action": "A"
+      }
+    },
+    "principal_variation": null,
+    "trace": [
+      {
+        "event": "ENTER",
+        "node": "R",
+        "depth": 0,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "A",
+        "depth": 1,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L01",
+        "depth": 2,
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L01",
+        "value": 10
+      },
+      {
+        "event": "UPDATE",
+        "node": "A",
+        "child": "L01",
+        "score": 10,
+        "best": 10,
+        "action": "L01",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L02",
+        "depth": 2,
+        "alpha": "-inf",
+        "beta": 10
+      },
+      {
+        "event": "LEAF",
+        "node": "L02",
+        "value": 12
+      },
+      {
+        "event": "UPDATE",
+        "node": "A",
+        "child": "L02",
+        "score": 12,
+        "best": 10,
+        "action": "L01",
+        "alpha": "-inf",
+        "beta": 10
+      },
+      {
+        "event": "RETURN",
+        "node": "A",
+        "value": 10,
+        "bound": "EXACT",
+        "action": "L01",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "R",
+        "child": "A",
+        "score": 10,
+        "best": 10,
+        "action": "A",
+        "alpha": "-inf",
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "B",
+        "depth": 1,
+        "alpha": 10,
+        "beta": "+inf"
+      },
+      {
+        "event": "ENTER",
+        "node": "L03",
+        "depth": 2,
+        "alpha": 10,
+        "beta": "+inf"
+      },
+      {
+        "event": "LEAF",
+        "node": "L03",
+        "value": 10
+      },
+      {
+        "event": "UPDATE",
+        "node": "B",
+        "child": "L03",
+        "score": 10,
+        "best": 10,
+        "action": "L03",
+        "alpha": 10,
+        "beta": "+inf"
+      },
+      {
+        "event": "PRUNE",
+        "node": "B",
+        "alpha": 10,
+        "beta": "+inf",
+        "value": 10,
+        "skipped": [
+          "L04"
+        ]
+      },
+      {
+        "event": "RETURN",
+        "node": "B",
+        "value": 10,
+        "bound": "UPPER",
+        "action": "L03",
+        "alpha_in": 10,
+        "beta_in": "+inf"
+      },
+      {
+        "event": "UPDATE",
+        "node": "R",
+        "child": "B",
+        "score": 10,
+        "best": 10,
+        "action": "A",
+        "alpha": 10,
+        "beta": "+inf"
+      },
+      {
+        "event": "RETURN",
+        "node": "R",
+        "value": 10,
+        "bound": "EXACT",
+        "action": "A",
+        "alpha_in": "-inf",
+        "beta_in": "+inf"
+      }
+    ],
+    "elapsed_ms": 14517.335541999728,
+    "experiment": "single",
+    "case": "T1",
+    "parameter": null,
+    "repeat": 1
+  }
+]
